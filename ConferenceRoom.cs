@@ -1,8 +1,8 @@
-class ConferenceRoom
+public class ConferenceRoom
 {
-    public string RoomNumber { get; set; }
+    public string RoomNumber { get;  }
 
-    public int Capacity { get; set; }
+    public int Capacity { get; }
 
     public RoomStatus Status { get; set; }
 
