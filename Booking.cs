@@ -1,27 +1,31 @@
+using ConferenceBookingDomain;
+
 class Booking
 {
-    public ConferenceRoom Room{get; set;}
-    public DateTime StartTime{get; set;}
-    public DateTime EndTime {get; set;}
+    public ConferenceRoom Room{get; }
+    public DateTime StartTime{get; }
+    public DateTime EndTime {get; }
     public BookingStatus Status {get; set;}
 
-    public Booking (ConferenceRoom room, DateTime startTime, DateTime endTime)
+  
+    
+    public Booking (BookingRequest request)
     {
-        Room = room;
-        StartTime = startTime;
-        EndTime = endTime;
+        Room = request.room;
+        StartTime = request.startTime;
+        EndTime = request.endTime;
         Status = BookingStatus.Active;
 
-        if (room == null)
+        if (request.room == null)
         {
             throw new Exception ("A room number must be entered");
 
         }
-        if (startTime >= endTime)
+        if (request.startTime >= request.endTime)
         {
             throw new Exception("Start time must be before end time;");
         }
-        if (StartTime > DateTime.Now )
+        if (request.startTime < DateTime.Now )
         {
             throw new Exception("Start time must be after the current time");
 
@@ -29,11 +33,14 @@ class Booking
         
     }
 
-    public void Cancel()
+    public Booking Cancel()
     {
         if (DateTime.Now >= StartTime)
         {
             throw new Exception("Cannot cancel a booking that already started/passed");
         }
+        
+        Status = BookingStatus.Cancelled;
+        return this;
     }
 }
