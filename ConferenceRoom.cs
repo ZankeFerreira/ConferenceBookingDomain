@@ -1,54 +1,55 @@
-namespace ConferenceBookingDomain{
-public class ConferenceRoom
+namespace ConferenceBookingDomain
 {
-    public string RoomNumber { get;  }
-
-    public int Capacity { get; }
-
-    public RoomStatus Status { get; set; }
-
-    public ConferenceRoom(string roomNumber, int capacity)
+    public class ConferenceRoom
     {
-        if (string.IsNullOrWhiteSpace(roomNumber))
+        public string RoomNumber { get; }
+
+        public int Capacity { get; }
+
+        public RoomStatus Status { get; set; }
+
+        public ConferenceRoom(string roomNumber, int capacity)
         {
-            throw new Exception("A room number must be entered");
+            if (string.IsNullOrWhiteSpace(roomNumber))
+            {
+                throw new Exception("A room number must be entered");
+            }
+            if (capacity < 10 || capacity > 20)
+            {
+                throw new Exception("Capacity must be between 10 and 20");
+                //Assuming there are rooms with a min of 10 and the max of 20
+            }
+
+            RoomNumber = roomNumber;
+            Capacity = capacity;
+            Status = RoomStatus.Available;
         }
-        if (capacity < 10 || capacity > 20)
+
+        public void UnderMaintenance()
         {
-            throw new Exception("Capacity must be between 10 and 20");
-            //Assuming there are rooms with a min of 10 and the max of 20
+            Status = RoomStatus.UnderMaintenance;
         }
 
-        RoomNumber = roomNumber;
-        Capacity = capacity;
-        Status = RoomStatus.Available;
+        public void Unavailable()
+        {
+            Status = RoomStatus.Unavailable;
+        }
+
+        public void Available()
+        {
+            Status = RoomStatus.Available;
+        }
+
+
+
+        public override string ToString()
+        {
+            return $"{RoomNumber} (Capacty: {Capacity}, Status: {Status})";
+        }
+
+
+
+
+
     }
-
-    public void UnderMaintenance()
-    {
-        Status = RoomStatus.UnderMaintenance;
-    }
-
-    public void Unavailable()
-    {
-        Status = RoomStatus.Unavailable;
-    }
-
-    public void Available()
-    {
-        Status = RoomStatus.Available;
-    }
-
-
-
-    public override string ToString()
-    {
-        return $"{RoomNumber} (Capacty: {Capacity}, Status: {Status})";
-    }
-
-
-
-
-
-}
 }

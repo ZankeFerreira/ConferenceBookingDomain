@@ -33,43 +33,71 @@ public class Program
                 case "1":
 
                     Console.WriteLine("Rooms in the system:");
-
-                    foreach (var room in logic.GetRooms())
+                    try
                     {
-                        Console.WriteLine(room);
+
+                        foreach (var room in logic.GetRooms())
+                        {
+                            Console.WriteLine(room);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
                     }
 
                     break;
                 case "2":
-                    logic.DisplayBookings();
+                    try
+                    {
+                        logic.DisplayBookings();
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
 
                     break;
                 case "3":
-                    Console.Write("\nEnter room number: ");
-                    string roomNumber = Console.ReadLine();
 
-                    Console.Write("Enter start date and time (yyyy-MM-dd HH:mm): ");
-                    DateTime startTime = DateTime.Parse(Console.ReadLine());
 
-                    Console.Write("Enter end date and time (yyyy-MM-dd HH:mm): ");
-                    DateTime endTime = DateTime.Parse(Console.ReadLine());
-
-                    var roomToBook = logic.GetRooms()
-                        .FirstOrDefault(r => r.RoomNumber == roomNumber);
-
-                    if (roomToBook == null)
+                    try
                     {
-                        Console.WriteLine("Room not found.");
-                        break;
+                        Console.Write("\nEnter room number: ");
+                        string roomNumber = Console.ReadLine();
+
+                        var roomToBook = logic.GetRooms()
+                            .FirstOrDefault(r => r.RoomNumber == roomNumber);
+
+                        if (roomToBook == null)
+                        {
+                            Console.WriteLine("Room not found.");
+                            break;
+                        }
+                        Console.Write("Enter start date and time (yyyy-MM-dd HH:mm): ");
+                        DateTime startTime = DateTime.Parse(Console.ReadLine());
+
+                        Console.Write("Enter end date and time (yyyy-MM-dd HH:mm): ");
+                        DateTime endTime = DateTime.Parse(Console.ReadLine());
+
+                        var request = new BookingRequest(roomToBook, startTime, endTime);
+
+
+                        var result = logic.ProcessBooking(request);
+
+                        Console.WriteLine(result.message);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
                     }
 
 
-                    var request = new BookingRequest(roomToBook, startTime, endTime);
 
 
-                    var result = logic.ProcessBooking(request);
 
-                    Console.WriteLine(result.message);
+
+
 
                     break;
                 case "4":
@@ -90,6 +118,8 @@ public class Program
                     Console.Write("\nSelect booking number to cancel: ");
                     int choiceToCancel = int.Parse(Console.ReadLine()) - 1;
 
+                    
+
                     if (choiceToCancel < 0 || choiceToCancel >= logic.Bookings.Count)
                     {
                         Console.WriteLine("Invalid selection.");
@@ -106,7 +136,7 @@ public class Program
                         Console.WriteLine(ex.Message);
                     }
 
-                    
+
 
                     break;
                 case "5":

@@ -21,6 +21,12 @@ public class Booking
             throw new Exception("A room number must be entered");
 
         }
+
+        if (StartTime == DateTime.MinValue || EndTime == DateTime.MinValue)
+        {
+            throw new Exception("Start time and end time cannot be empty");
+        }
+
         if (request.StartTime >= request.EndTime)
         {
             throw new Exception("Start time must be before end time;");
@@ -33,7 +39,7 @@ public class Booking
 
     }
 
-    
+
 
     public Booking Cancel()
     {
@@ -56,5 +62,5 @@ public class Booking
         return $"{Room.RoomNumber}: {StartTime} - {EndTime} ({Status})";
     }
 
-    
+
 }

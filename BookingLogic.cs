@@ -30,7 +30,7 @@ public class BookingLogic
         }
     }
 
- 
+
     public void AddRoom(ConferenceRoom room)
     {
 
@@ -48,38 +48,42 @@ public class BookingLogic
     }
 
     public void DefaultRooms()
-{
-    AddRoom(new ConferenceRoom("001", 15));
-    AddRoom(new ConferenceRoom("002", 12));
-    AddRoom(new ConferenceRoom("003", 20));
-    AddRoom(new ConferenceRoom("004", 17));
-    AddRoom(new ConferenceRoom("005", 10));
-}
+    {
+        AddRoom(new ConferenceRoom("001", 15));
+        AddRoom(new ConferenceRoom("002", 12));
+        AddRoom(new ConferenceRoom("003", 20));
+        AddRoom(new ConferenceRoom("004", 17));
+        AddRoom(new ConferenceRoom("005", 10));
+    }
 
-public List<ConferenceRoom> GetRooms()
-{
-    return _rooms.Values.ToList();
-}
+    public List<ConferenceRoom> GetRooms()
+    {
+        if (!_rooms.Any())
+        {
+            throw new NoConferenceRoomsException();
+        }
+        return _rooms.Values.ToList();
+    }
 
 
 
     public (bool success, string message, Booking booking) ProcessBooking(BookingRequest request)
     {
-    
+
         if (!_rooms.ContainsKey(request.Room.RoomNumber))
             return (false, $"Room {request.Room.RoomNumber} does not exist", null);
 
         var room = _rooms[request.Room.RoomNumber];
 
 
-    
-        var rooms = _rooms[request.Room.RoomNumber]; 
-        if (rooms.Status != RoomStatus.Available)     
+
+        var rooms = _rooms[request.Room.RoomNumber];
+        if (rooms.Status != RoomStatus.Available)
         {
             return (false, $"Room {room.RoomNumber} is not available", null);
         }
 
-       
+
         foreach (var b in Bookings)
         {
             if (b.Room.RoomNumber == room.RoomNumber && b.Status == BookingStatus.Active)
@@ -91,7 +95,7 @@ public List<ConferenceRoom> GetRooms()
             }
         }
 
-      
+
         try
         {
             var booking = new Booking(request);
@@ -104,48 +108,47 @@ public List<ConferenceRoom> GetRooms()
         }
     }
     private void AddDummyBookings()
-{
-    var room1 = _rooms["001"];
-    var room2 = _rooms["002"];
-    var room3 = _rooms["003"];
-
-    // Monday
-    Bookings.Add(new Booking(new BookingRequest(
-        room1,
-        new DateTime(2026, 2, 2, 9, 0, 0),   // 09:00
-        new DateTime(2026, 2, 2, 10, 0, 0)   // 10:00
-    )));
-
-    Bookings.Add(new Booking(new BookingRequest(
-        room2,
-        new DateTime(2026, 2, 2, 11, 0, 0),  // 11:00
-        new DateTime(2026, 2, 2, 12, 30, 0)  // 12:30
-    )));
-
-    // Wednesday
-    Bookings.Add(new Booking(new BookingRequest(
-        room3,
-        new DateTime(2026, 2, 4, 14, 0, 0),  // 14:00
-        new DateTime(2026, 2, 4, 16, 0, 0)   // 16:00
-    )));
-
-    // Friday
-    Bookings.Add(new Booking(new BookingRequest(
-        room1,
-        new DateTime(2026, 2, 6, 10, 0, 0),  // 10:00
-        new DateTime(2026, 2, 6, 11, 30, 0)  // 11:30
-    )));
-}
+    {
+        var room1 = _rooms["001"];
+        var room2 = _rooms["002"];
+        var room3 = _rooms["003"];
 
 
-  
+        Bookings.Add(new Booking(new BookingRequest(
+            room1,
+            new DateTime(2026, 2, 2, 9, 0, 0),
+            new DateTime(2026, 2, 2, 10, 0, 0)
+        )));
+
+        Bookings.Add(new Booking(new BookingRequest(
+            room2,
+            new DateTime(2026, 2, 2, 11, 0, 0),
+            new DateTime(2026, 2, 2, 12, 30, 0)
+        )));
+
+
+        Bookings.Add(new Booking(new BookingRequest(
+            room3,
+            new DateTime(2026, 2, 4, 14, 0, 0),  // 14:00
+            new DateTime(2026, 2, 4, 16, 0, 0)   // 16:00
+        )));
+
+
+        Bookings.Add(new Booking(new BookingRequest(
+            room1,
+            new DateTime(2026, 2, 6, 10, 0, 0),  // 10:00
+            new DateTime(2026, 2, 6, 11, 30, 0)  // 11:30
+        )));
+    }
+
+
+
     public void DisplayBookings()
     {
         Console.WriteLine("\nCurrent Bookings:");
         if (Bookings.Count == 0)
         {
-            Console.WriteLine("No bookings.");
-            return;
+            throw new NoBookingsException();
         }
 
         foreach (var b in Bookings)
