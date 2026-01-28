@@ -1,3 +1,4 @@
+namespace ConferenceBookingDomain{
 public class ConferenceRoom
 {
     public string RoomNumber { get;  }
@@ -40,10 +41,14 @@ public class ConferenceRoom
 
 
 
+    public override string ToString()
+    {
+        return $"{RoomNumber} (Capacty: {Capacity}, Status: {Status})";
+    }
 
 
 
 
 
-
+}
 }

@@ -1,36 +1,36 @@
 using ConferenceBookingDomain;
 
-class Booking
+public class Booking
 {
-    public ConferenceRoom Room{get; }
-    public DateTime StartTime{get; }
-    public DateTime EndTime {get; }
-    public BookingStatus Status {get; set;}
+    public ConferenceRoom Room { get; }
+    public DateTime StartTime { get; }
+    public DateTime EndTime { get; }
+    public BookingStatus Status { get; set; }
 
-  
-    
-    public Booking (BookingRequest request)
+
+
+    public Booking(BookingRequest request)
     {
-        Room = request.room;
-        StartTime = request.startTime;
-        EndTime = request.endTime;
+        Room = request.Room;
+        StartTime = request.StartTime;
+        EndTime = request.EndTime;
         Status = BookingStatus.Active;
 
-        if (request.room == null)
+        if (request.Room == null)
         {
-            throw new Exception ("A room number must be entered");
+            throw new Exception("A room number must be entered");
 
         }
-        if (request.startTime >= request.endTime)
+        if (request.StartTime >= request.EndTime)
         {
             throw new Exception("Start time must be before end time;");
         }
-        if (request.startTime < DateTime.Now )
+        if (request.StartTime < DateTime.Now)
         {
             throw new Exception("Start time must be after the current time");
 
         }
-        
+
     }
 
     public Booking Cancel()
@@ -39,8 +39,20 @@ class Booking
         {
             throw new Exception("Cannot cancel a booking that already started/passed");
         }
-        
+
         Status = BookingStatus.Cancelled;
         return this;
     }
+
+    public bool Overlaps(DateTime start, DateTime end)
+    {
+        return StartTime < end && start < EndTime;
+    }
+
+    public override string ToString()
+    {
+        return $"{Room.RoomNumber}: {StartTime} - {EndTime} ({Status})";
+    }
+
+    
 }
