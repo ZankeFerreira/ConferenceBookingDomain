@@ -31,9 +31,15 @@ Table of Contents
 
 ## 🗂 Repository Contents
 
-- Enums.cs - Contains all the enums for the project
-- ConferenceRoom.cs - Contains the fields and properties of the conference rooms (e.g. Room number, capacity)
-- Booking.cs - Contains the properties and logic needed for booking a conference room (e.g. Start time, end time, room number)
+- Enums.cs: Contains all enums used in the project (room status, booking status, etc.)
+
+- ConferenceRoom.cs: Defines a conference room and its details, such as room number, capacity, and status.
+
+- Booking.cs: Contains the logic and data for room bookings, including start time, end time, and booking status.
+
+- BookingRequest.cs: Represents a request to book a room.
+
+- BookingLogic.cs: Handles booking rules such as availability and overlapping bookings.
 
 
 ---
@@ -71,6 +77,8 @@ Contributors should:
 ## 👓 Developer Onboarding (In Progress)
 
 - So far the logic of the application will be coded in C#
+- The focus is on domain logic and business rules
+- More documentation will be added as the project grows
 
 ---
 ## ⚙️ System Context
@@ -83,9 +91,6 @@ The conference Booking System is a conceptual system intended to manage:
 - Maintenance access - the rooms can be marked for maintenance and the appropriate adjustments will be made
 - Visitor's booking - the receptionist can make booking for clients
 
-At this stage, the system is documented through:
-- Sprint planning artefacts
-- API documentation
 
 Implementation details will be added in later modules
 
