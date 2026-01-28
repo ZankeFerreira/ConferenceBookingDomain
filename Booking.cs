@@ -33,6 +33,8 @@ public class Booking
 
     }
 
+    
+
     public Booking Cancel()
     {
         if (DateTime.Now >= StartTime)

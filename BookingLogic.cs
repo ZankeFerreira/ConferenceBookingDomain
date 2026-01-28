@@ -3,6 +3,12 @@ using System;
 using ConferenceBookingDomain;
 public class BookingLogic
 {
+    public BookingLogic()
+    {
+        DefaultRooms();
+        AddDummyBookings();
+    }
+
     //Lookup rooms with room number
     public Dictionary<string, ConferenceRoom> _rooms = new Dictionary<string, ConferenceRoom>();
 
@@ -40,6 +46,22 @@ public class BookingLogic
 
         _rooms[room.RoomNumber] = room;
     }
+
+    public void DefaultRooms()
+{
+    AddRoom(new ConferenceRoom("001", 15));
+    AddRoom(new ConferenceRoom("002", 12));
+    AddRoom(new ConferenceRoom("003", 20));
+    AddRoom(new ConferenceRoom("004", 17));
+    AddRoom(new ConferenceRoom("005", 10));
+}
+
+public List<ConferenceRoom> GetRooms()
+{
+    return _rooms.Values.ToList();
+}
+
+
 
     public (bool success, string message, Booking booking) ProcessBooking(BookingRequest request)
     {
@@ -81,6 +103,40 @@ public class BookingLogic
             return (false, ex.Message, null);
         }
     }
+    private void AddDummyBookings()
+{
+    var room1 = _rooms["001"];
+    var room2 = _rooms["002"];
+    var room3 = _rooms["003"];
+
+    // Monday
+    Bookings.Add(new Booking(new BookingRequest(
+        room1,
+        new DateTime(2026, 2, 2, 9, 0, 0),   // 09:00
+        new DateTime(2026, 2, 2, 10, 0, 0)   // 10:00
+    )));
+
+    Bookings.Add(new Booking(new BookingRequest(
+        room2,
+        new DateTime(2026, 2, 2, 11, 0, 0),  // 11:00
+        new DateTime(2026, 2, 2, 12, 30, 0)  // 12:30
+    )));
+
+    // Wednesday
+    Bookings.Add(new Booking(new BookingRequest(
+        room3,
+        new DateTime(2026, 2, 4, 14, 0, 0),  // 14:00
+        new DateTime(2026, 2, 4, 16, 0, 0)   // 16:00
+    )));
+
+    // Friday
+    Bookings.Add(new Booking(new BookingRequest(
+        room1,
+        new DateTime(2026, 2, 6, 10, 0, 0),  // 10:00
+        new DateTime(2026, 2, 6, 11, 30, 0)  // 11:30
+    )));
+}
+
 
   
     public void DisplayBookings()

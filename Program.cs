@@ -3,69 +3,133 @@ using System;
 
 public class Program
 {
+    public static string Menu()
+    {
+        Console.WriteLine("\nMenu" +
+        "\n1. Display Conference Rooms" +
+        "\n2. Display bookings" +
+        "\n3. Make a booking" +
+        "\n4. Cancel a booking" +
+        "\n5. Exit");
+        Console.Write("\nEnter an option: ");
+        string choice = Console.ReadLine();
+        return choice;
+    }
+
     static void Main()
     {
+        Console.WriteLine("Conference Room Booking System");
+        Console.WriteLine("------------------------------");
+
         var logic = new BookingLogic();
 
-        var room1 = new ConferenceRoom("001", 15);
-        var room2 = new ConferenceRoom("002", 12);
-        var room3 = new ConferenceRoom("003", 20);
-        var room4 = new ConferenceRoom("004", 17);
-        var room5 = new ConferenceRoom("005", 10);
+        bool exit = false;
 
-
-        logic.AddRoom(room1);
-        logic.AddRoom(room2);
-        logic.AddRoom(room3);
-        logic.AddRoom(room4);
-        logic.AddRoom(room5);
-
-
-        Console.WriteLine("Rooms in the system:");
-        foreach (var room in logic.Rooms)
+        while (exit == false)
         {
-            Console.WriteLine($"{room.RoomNumber} (Capacity: {room.Capacity}, Status: {room.Status})");
-        }
-
-
-        var now = DateTime.Now;
-        var request1 = new BookingRequest(room1, now.AddMinutes(5), now.AddMinutes(65));   // valid
-        var request2 = new BookingRequest(room1, now.AddMinutes(50), now.AddMinutes(120)); // overlaps
-        var request3 = new BookingRequest(room2, now.AddMinutes(10), now.AddMinutes(70));  // valid
-        var request4 = new BookingRequest(room3, now.AddMinutes(-10), now.AddMinutes(30)); // start in past
-
-        var requests = new BookingRequest[] { request1, request2, request3, request4 };
-
-    
-        foreach (var req in requests)
-        {
-            var (success, message, booking) = logic.ProcessBooking(req);
-            Console.WriteLine($"Booking for room {req.Room.RoomNumber} from {req.StartTime:t} to {req.EndTime:t}: {(success ? "Accepted" : "Rejected")} - {message}");
-        }
-
-       
-        logic.DisplayBookings();
-
-        Booking firstActive = null;
-        foreach (var b in logic.Bookings)
-        {
-            if (b.Status == BookingStatus.Active)
+            string choice = Menu();
+            switch (choice)
             {
-                firstActive = b;
-                break;
+                case "1":
+
+                    Console.WriteLine("Rooms in the system:");
+
+                    foreach (var room in logic.GetRooms())
+                    {
+                        Console.WriteLine(room);
+                    }
+
+                    break;
+                case "2":
+                    logic.DisplayBookings();
+
+                    break;
+                case "3":
+                    Console.Write("\nEnter room number: ");
+                    string roomNumber = Console.ReadLine();
+
+                    Console.Write("Enter start date and time (yyyy-MM-dd HH:mm): ");
+                    DateTime startTime = DateTime.Parse(Console.ReadLine());
+
+                    Console.Write("Enter end date and time (yyyy-MM-dd HH:mm): ");
+                    DateTime endTime = DateTime.Parse(Console.ReadLine());
+
+                    var roomToBook = logic.GetRooms()
+                        .FirstOrDefault(r => r.RoomNumber == roomNumber);
+
+                    if (roomToBook == null)
+                    {
+                        Console.WriteLine("Room not found.");
+                        break;
+                    }
+
+
+                    var request = new BookingRequest(roomToBook, startTime, endTime);
+
+
+                    var result = logic.ProcessBooking(request);
+
+                    Console.WriteLine(result.message);
+
+                    break;
+                case "4":
+                    if (logic.Bookings.Count == 0)
+                    {
+                        Console.WriteLine("No bookings to cancel.");
+                        break;
+                    }
+
+                    for (int i = 0; i < logic.Bookings.Count; i++)
+                    {
+                        var b = logic.Bookings[i];
+                        Console.WriteLine(
+                            $"{i + 1}. Room {b.Room.RoomNumber} | {b.StartTime} - {b.EndTime} | {b.Status}"
+                        );
+                    }
+
+                    Console.Write("\nSelect booking number to cancel: ");
+                    int choiceToCancel = int.Parse(Console.ReadLine()) - 1;
+
+                    if (choiceToCancel < 0 || choiceToCancel >= logic.Bookings.Count)
+                    {
+                        Console.WriteLine("Invalid selection.");
+                        break;
+                    }
+
+                    try
+                    {
+                        logic.Bookings[choiceToCancel].Cancel();
+                        Console.WriteLine("Booking cancelled successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                    }
+
+                    
+
+                    break;
+                case "5":
+                    exit = true;
+                    break;
+                default:
+                    Console.WriteLine("\n!!! Choose a valid option !!!");
+                    Console.WriteLine("------------------------");
+
+
+                    break;
             }
+
         }
+        ;
 
-        if (firstActive != null)
-        {
-            Console.WriteLine($"\nCancelling booking: {firstActive.Room.RoomNumber} ({firstActive.StartTime:t}-{firstActive.EndTime:t})");
-            var cancelledBooking = firstActive.Cancel();
-            Console.WriteLine($"Status after cancellation: {cancelledBooking.Status}");
-        }
 
-        logic.DisplayBookings();
 
-        Console.WriteLine("\nPress any key to exit...");
-        Console.ReadKey();
+
+
+
+
+
+
     }
 }
