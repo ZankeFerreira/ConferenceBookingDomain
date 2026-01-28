@@ -1,8 +1,11 @@
-namespace ConferenceBookingDomain;
+using ConferenceBookingDomain;
+
+namespace ConferenceBookingDomain{
 
 
 public record BookingRequest(
-    ConferenceRoom room,
-    DateTime startTime,
-    DateTime endTime
+    ConferenceRoom Room,
+    DateTime StartTime,
+    DateTime EndTime
 );
+}
