@@ -22,6 +22,7 @@ Table of Contents
 - [Repository Contents](#-repository-contents)
 - [Installation](#️-installation)
 - [Usage](#-usage)
+- [New Features](#-new-features)
 - [Contributing](#-contributing)
 - [Developer Onboarding](#-developer-onboarding-in-progress)
 - [System Context](#️-system-context)
@@ -60,6 +61,21 @@ To access the documents on your local computer:
 This repository is currently used for:
 - Contributing to the Conference Room Booking application using C#
 
+
+---
+## 🆕 New Features
+
+- Conflict Checking: Prevents double bookings for the same room and time
+
+- Cancel Bookings: Employees can cancel upcoming bookings
+
+- Booking History: Save and load booking history to a JSON file
+
+- Maintenance Mode: Rooms can be marked unavailable for maintenance
+
+- Visitor Bookings: Receptionists can book rooms for visitors
+
+- Input Validation: Ensures users cannot enter invalid or empty dates/times
 
 ---
 
