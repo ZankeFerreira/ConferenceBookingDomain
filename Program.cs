@@ -10,13 +10,15 @@ public class Program
         "\n2. Display bookings" +
         "\n3. Make a booking" +
         "\n4. Cancel a booking" +
-        "\n5. Exit");
+        "\n5. Write bookings to file" +
+        "\n6. Read saved bookings from file" +
+        "\n7. Exit");
         Console.Write("\nEnter an option: ");
         string choice = Console.ReadLine();
         return choice;
     }
 
-    static void Main()
+    static async Task Main()
     {
         Console.WriteLine("Conference Room Booking System");
         Console.WriteLine("------------------------------");
@@ -118,7 +120,7 @@ public class Program
                     Console.Write("\nSelect booking number to cancel: ");
                     int choiceToCancel = int.Parse(Console.ReadLine()) - 1;
 
-                    
+
 
                     if (choiceToCancel < 0 || choiceToCancel >= logic.Bookings.Count)
                     {
@@ -140,6 +142,53 @@ public class Program
 
                     break;
                 case "5":
+                    try
+                    {
+                        await logic.BookingHistory("history.json");
+                        Console.WriteLine("Bookings saved!");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to save Calculator history because: {ex.Message}");
+                    }
+
+
+                    break;
+
+                case "6":
+                    try
+                    {
+                        await logic.BookingHistory("history.json");
+                        List<BookingRequest> history = await logic.ReadHistoryAsync("history.json");
+
+                        if (history.Count == 0)
+                        {
+                            Console.WriteLine("No bookings in history.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("\nBooking History:");
+                            foreach (var b in history)
+                            {
+                                Console.WriteLine($"Room {b.Room.RoomNumber} | {b.StartTime} - {b.EndTime}");
+                            }
+                        }
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        Console.WriteLine($"History file not found: {ex.Message}");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to read or save file: {ex.Message}");
+                    }
+
+
+                    break;
+
+
+
+                case "7":
                     exit = true;
                     break;
                 default:

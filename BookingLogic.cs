@@ -1,4 +1,7 @@
 using System;
+using System.Threading.Tasks;
+using System.Text.Json;
+using System.IO;
 
 using ConferenceBookingDomain;
 public class BookingLogic
@@ -156,6 +159,28 @@ public class BookingLogic
             Console.WriteLine($"{b.Room.RoomNumber}: {b.StartTime} - {b.EndTime} ({b.Status})");
         }
     }
+
+    public async Task BookingHistory(string filepath)
+{
+    
+    string json = JsonSerializer.Serialize(Bookings);
+    await File.WriteAllTextAsync(filepath, json);
+}
+
+public async Task <List<BookingRequest>> ReadHistoryAsync(string filepath)
+    {
+        if(File.Exists(filepath))
+        {
+            string json = await File.ReadAllTextAsync(filepath);
+            return JsonSerializer.Deserialize<List<BookingRequest>>(json) ?? new List<BookingRequest>();
+        }
+        else
+        {
+            throw new FileNotFoundException("History file not found");
+        }
+        
+    }
+
 
 
 
