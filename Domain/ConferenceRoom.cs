@@ -2,13 +2,17 @@ namespace ConferenceBookingDomain
 {
     public class ConferenceRoom
     {
+        //Roomtype
+
+        public int ID { get; }
+
         public string RoomNumber { get; }
 
         public int Capacity { get; }
 
         public RoomStatus Status { get; set; }
 
-        public ConferenceRoom(string roomNumber, int capacity)
+        public ConferenceRoom(int id, string roomNumber, int capacity, RoomStatus status)
         {
             if (string.IsNullOrWhiteSpace(roomNumber))
             {
@@ -20,32 +24,15 @@ namespace ConferenceBookingDomain
                 //Assuming there are rooms with a min of 10 and the max of 20
             }
 
+            ID = id;
             RoomNumber = roomNumber;
             Capacity = capacity;
-            Status = RoomStatus.Available;
+            Status = status;
         }
 
-        public void UnderMaintenance()
-        {
-            Status = RoomStatus.UnderMaintenance;
-        }
+        
 
-        public void Unavailable()
-        {
-            Status = RoomStatus.Unavailable;
-        }
-
-        public void Available()
-        {
-            Status = RoomStatus.Available;
-        }
-
-
-
-        public override string ToString()
-        {
-            return $"{RoomNumber} (Capacty: {Capacity}, Status: {Status})";
-        }
+        
 
 
 
