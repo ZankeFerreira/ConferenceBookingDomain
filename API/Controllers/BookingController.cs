@@ -26,5 +26,20 @@ namespace API.controllers
 
             return Ok(bookings);
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Book([FromBody] BookingRequest request)
+        {
+            var output = await _bookings.CreateBooking(request);
+
+            if (output == null)
+            {
+                return BadRequest("Invalid input");
+            }
+          
+            return Ok(output);
+        }
+
+        
     }
 }

@@ -9,7 +9,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<BookingManager>();
 
+var dataDirectory = Path.Combine(
+    builder.Environment.ContentRootPath,
+    "Data"
+);
 
+builder.Services.AddSingleton<IBookingStore>(new BookingFileStore(dataDirectory));
 
 
 var app = builder.Build();
