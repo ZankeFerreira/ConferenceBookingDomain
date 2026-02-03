@@ -61,6 +61,33 @@ To access the documents on your local computer:
 This repository is currently used for:
 - Contributing to the Conference Room Booking application using C#
 
+---
+## 💻 How to run the API
+1. Navigate to the root directory of the API project in your terminal (where the .csproj file is located).
+2. Run the application using:
+```
+dotnet run
+```
+3. The API will typically start on http://localhost:5200. You can test the endpoints using tools like Postman or via the Swagger UI available at http://localhost:5200/swagger.
+
+### Example
+You can test the API using a POST request to create a new booking.
+- Endpoint: POST http://localhost:5200/api/bookings
+- Request Body (JSON):
+```
+{
+    "room": {
+        "id": 1,
+        "roomNumber": "Room A",
+        "capacity": 15,
+        "status": 0
+    },
+    "startTime": "2026-06-01T10:00:00",
+    "endTime": "2026-06-01T11:00:00"
+}
+```
+- A successfull respons (HTTP Status 200 OK) will display
+
 
 ---
 ## 🆕 New Features
