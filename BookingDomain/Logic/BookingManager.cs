@@ -7,14 +7,21 @@ namespace ConferenceBookingDomain{
 public class BookingManager     //All business rules
 {
     //Properties
-    private readonly List<Booking> _bookings;
+    private readonly List<Booking> _bookings = new List<Booking>();
+    private readonly IBookingStore _store;
     //Methods
+
+    public BookingManager(IBookingStore store)
+        {
+            _bookings = new List<Booking>();
+            _store = store;
+        }
     public IReadOnlyList<Booking> GetBookings()
     {
         return _bookings.ToList();
     }
 
-    public Booking CreateBooking(BookingRequest request)
+    public async Task<Booking> CreateBooking(BookingRequest request)
     {
         if(request.Room == null)
         {
@@ -35,6 +42,8 @@ public class BookingManager     //All business rules
 
             booking.Confirm();
             _bookings.Add(booking);
+
+            await _store.SaveAsync(_bookings); 
 
             return booking;
 

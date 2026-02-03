@@ -1,0 +1,12 @@
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\bin\Debug\net8.0\BookingDomain.deps.json
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\bin\Debug\net8.0\BookingDomain.dll
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\bin\Debug\net8.0\BookingDomain.pdb
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.AssemblyInfoInputs.cache
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.AssemblyInfo.cs
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.csproj.CoreCompileInputs.cache
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.sourcelink.json
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.dll
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\refint\BookingDomain.dll
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.pdb
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\ref\BookingDomain.dll

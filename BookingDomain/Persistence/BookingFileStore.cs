@@ -3,17 +3,23 @@ using System.Text.Json;
 using System.IO;
 
 namespace ConferenceBookingDomain{
-public class BookingFileStore
+public class BookingFileStore: IBookingStore
 {
     private readonly string _filepath;
+    private readonly string _directoryPath;
 
-    public BookingFileStore(string filepath)
+    public BookingFileStore(string directoryPath)
     {
-        _filepath = filepath;
+        _directoryPath = directoryPath;
+        _filepath = Path.Combine(_directoryPath, "bookings.json");
     }
 
     public async Task SaveAsync(IEnumerable<Booking> bookings)
     {
+         if (!Directory.Exists(_directoryPath))
+            Directory.CreateDirectory(_directoryPath);
+
+        
 
         string json = JsonSerializer.Serialize(bookings);
         await File.WriteAllTextAsync(_filepath, json);
