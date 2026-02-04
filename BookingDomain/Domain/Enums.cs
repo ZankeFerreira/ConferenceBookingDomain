@@ -8,9 +8,8 @@
 
 public enum RoomStatus          //Additional enum for the status of the rooms for bookings
 {
-    Standard,
-    Training,
-    Boardroom
+    Available,
+    UnderMaintenance
 }
 
 public enum UserRole            //Additional enum for the user role for access control to features
