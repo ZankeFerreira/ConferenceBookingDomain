@@ -17,27 +17,57 @@ namespace API.controllers
         [HttpGet]
         public async Task<IActionResult> GetAllRooms()
         {
-            var rooms = _rooms.GetRooms();
-
-            if (!rooms.Any())
+            try
             {
-                return NotFound("There are no rooms available");
+                var rooms = _rooms.GetRooms();
+
+                if (!rooms.Any())
+                {
+                    return NotFound("There are no rooms available");
+                }
+
+                var response = rooms.Select(r => new GetRoomsDto
+                {
+                    ID = r.ID,
+                    RoomNumber = r.RoomNumber,
+                    Capacity = r.Capacity,
+                    Status = r.Status,
+
+
+
+                });
+
+                return Ok(response);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error."); // 500
             }
 
-            return Ok(rooms);
         }
 
         [HttpPatch("{id}/status")]
-        public IActionResult UpdateRoomStatus(int id, [FromBody] RoomStatus newStatus)
+        public IActionResult UpdateRoomStatus(int id, [FromBody] UpdateRoomStatusDto dto)
         {
-            var success = _rooms.UpdateRoomStatus(id, newStatus);
-
-            if (!success)
+            try
             {
-                return NotFound($"Room with ID {id} not found.");
-            }
+                if (dto == null)
+                {
+                    return BadRequest("Invalid status");
+                }
+                var success = _rooms.UpdateRoomStatus(id, dto.status);
 
-            return Ok("Room status changed"); // 204 Success, no content to return
+                if (!success)
+                {
+                    return NotFound($"Room with ID {id} not found.");
+                }
+
+                return Ok("Room status changed"); // 204 Success, no content to return
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Internal server error."); // 500
+            }
         }
 
 
