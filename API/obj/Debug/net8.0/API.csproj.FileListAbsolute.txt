@@ -34,3 +34,4 @@ C:\Users\zanke\ConferenceBookingDomain\API\obj\Debug\net8.0\refint\API.dll
 C:\Users\zanke\ConferenceBookingDomain\API\obj\Debug\net8.0\API.pdb
 C:\Users\zanke\ConferenceBookingDomain\API\obj\Debug\net8.0\API.genruntimeconfig.cache
 C:\Users\zanke\ConferenceBookingDomain\API\obj\Debug\net8.0\ref\API.dll
+C:\Users\zanke\ConferenceBookingDomain\API\bin\Debug\net8.0\Data\bookings.json

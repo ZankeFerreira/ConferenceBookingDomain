@@ -9,13 +9,13 @@ namespace API.controllers
     [Route("api/bookings")]
     public class BookingController:ControllerBase
     {
-        private readonly BookingManager _bookings;
+        private BookingManager _bookings;
         public BookingController (BookingManager manager)
         {
             _bookings = manager;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAllBookings()
         {
             var bookings = _bookings.GetBookings();
 
@@ -39,6 +39,21 @@ namespace API.controllers
           
             return Ok(output);
         }
+
+        [HttpDelete ("{id}")]
+        public async Task<IActionResult> DeleteBooking(Guid id)
+        {
+            bool deleted = await _bookings.DeleteBooking(id);
+            if (!deleted)
+            {
+                return NotFound($"Booking with ID {id} not found.");
+            }
+
+            return NoContent();
+        }
+
+        
+
 
         
     }

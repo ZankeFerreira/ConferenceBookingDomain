@@ -3,35 +3,45 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.IO;
 
-namespace ConferenceBookingDomain{
-public class BookingManager     //All business rules
+namespace ConferenceBookingDomain
 {
-    //Properties
-    private readonly List<Booking> _bookings = new List<Booking>();
-    private readonly IBookingStore _store;
-    //Methods
+    public class BookingManager     //All business rules
+    {
+        //Properties
+        private readonly List<Booking> _bookings = new List<Booking>();
+        private List<ConferenceRoom> _rooms = new List<ConferenceRoom>();
 
-    public BookingManager(IBookingStore store)
+        private readonly IBookingStore _store;
+        //Method
+
+        public BookingManager(IBookingStore store)
         {
             _bookings = new List<Booking>();
             _store = store;
-        }
-    public IReadOnlyList<Booking> GetBookings()
-    {
-        return _bookings.ToList();
-    }
+            SeedData data = new SeedData();
+            _rooms = data.SeedRooms();
 
-    public async Task<Booking> CreateBooking(BookingRequest request)
-    {
-        if(request.Room == null)
-        {
-            throw new ArgumentException("Room must exist");
         }
-        if(request.StartTime >= request.EndTime)
+        public IReadOnlyList<Booking> GetBookings()
+        {
+            return _bookings.ToList();
+        }
+        public IReadOnlyList<ConferenceRoom> GetRooms()
+        {
+            return _rooms.ToList();
+        }
+
+        public async Task<Booking> CreateBooking(BookingRequest request)
+        {
+            if (request.Room == null)
+            {
+                throw new ArgumentException("Room must exist");
+            }
+            if (request.StartTime >= request.EndTime)
             {
                 throw new ArgumentException("Invalid time range");
             }
-        bool overlaps = _bookings.Any(b => b.Room == request.Room && b.Status == BookingStatus.Confirmed && request.StartTime < b.EndTime && request.EndTime > b.StartTime);
+            bool overlaps = _bookings.Any(b => b.Room == request.Room && b.Status == BookingStatus.Confirmed && request.StartTime < b.EndTime && request.EndTime > b.StartTime);
 
             if (overlaps)
             {
@@ -43,20 +53,45 @@ public class BookingManager     //All business rules
             booking.Confirm();
             _bookings.Add(booking);
 
-            await _store.SaveAsync(_bookings); 
+            await _store.SaveAsync(_bookings);
 
             return booking;
 
+        }
+
+        public async Task<bool> DeleteBooking(Guid id)
+        {
+            var bookingToRemove = _bookings.FirstOrDefault(b => b.Id == id);
+            if (bookingToRemove == null)
+            {
+                return false;
+            }
+
+            _bookings.Remove(bookingToRemove);
+            await _store.SaveAsync(_bookings);
+
+            return true;
+        }
+
+        public bool UpdateRoomStatus(int id, RoomStatus newStatus)
+        {
+            var room = _rooms.FirstOrDefault(r => r.ID == id);
+            if (room == null) {
+            return false;
+            }
+
+            room.Status = newStatus;
+            return true;
+        }
+
     }
-
-}
 }
 
 
 
 
 
-    
+
 
 
 
