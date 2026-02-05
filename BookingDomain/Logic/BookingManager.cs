@@ -1,10 +1,12 @@
-using System;
-using System.Threading.Tasks;
-using System.Text.Json;
-using System.IO;
 
 namespace ConferenceBookingDomain
 {
+    public class InvalidBookingException : Exception;
+    public class BookingConflictException : Exception;
+    public class RoomNotFoundException(int id) : Exception;
+    public class BookingNotFoundException(Guid id) : Exception;
+
+
     public class BookingManager     //All business rules
     {
         //Properties
@@ -35,11 +37,11 @@ namespace ConferenceBookingDomain
         {
             if (request.Room == null)
             {
-                throw new ArgumentException("Room must exist");
+                throw new InvalidBookingException();
             }
             if (request.StartTime >= request.EndTime)
             {
-                throw new ArgumentException("Invalid time range");
+                throw new InvalidBookingException(); 
             }
             bool overlaps = _bookings.Any(b => b.Room == request.Room && b.Status == BookingStatus.Confirmed && request.StartTime < b.EndTime && request.EndTime > b.StartTime);
 
@@ -64,7 +66,7 @@ namespace ConferenceBookingDomain
             var bookingToRemove = _bookings.FirstOrDefault(b => b.Id == id);
             if (bookingToRemove == null)
             {
-                return false;
+                throw new BookingNotFoundException(id);
             }
 
             _bookings.Remove(bookingToRemove);
@@ -73,15 +75,15 @@ namespace ConferenceBookingDomain
             return true;
         }
 
-        public bool UpdateRoomStatus(int id, RoomStatus newStatus)
+        public void UpdateRoomStatus(int id, RoomStatus newStatus)
         {
             var room = _rooms.FirstOrDefault(r => r.ID == id);
             if (room == null) {
-            return false;
+                throw new RoomNotFoundException(id);
             }
 
             room.Status = newStatus;
-            return true;
+            
         }
 
     }

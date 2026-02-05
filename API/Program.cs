@@ -20,6 +20,8 @@ builder.Services.AddSingleton<IBookingStore>(new BookingFileStore(dataDirectory)
 
 var app = builder.Build();
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+
 app.MapControllers();
 
 // Configure the HTTP request pipeline.
