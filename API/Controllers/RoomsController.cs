@@ -17,8 +17,7 @@ namespace API.controllers
         [HttpGet]
         public async Task<IActionResult> GetAllRooms()
         {
-            try
-            {
+           
                 var rooms = _rooms.GetRooms();
 
                 if (!rooms.Any())
@@ -38,36 +37,20 @@ namespace API.controllers
                 });
 
                 return Ok(response);
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal server error."); // 500
-            }
+           
 
         }
 
         [HttpPatch("{id}/status")]
         public IActionResult UpdateRoomStatus(int id, [FromBody] UpdateRoomStatusDto dto)
         {
-            try
-            {
-                if (dto == null)
-                {
-                    return BadRequest("Invalid status");
-                }
-                var success = _rooms.UpdateRoomStatus(id, dto.status);
+             
+                _rooms.UpdateRoomStatus(id, dto.status);
 
-                if (!success)
-                {
-                    return NotFound($"Room with ID {id} not found.");
-                }
+               
 
                 return Ok("Room status changed"); // 204 Success, no content to return
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Internal server error."); // 500
-            }
+            
         }
 
 
