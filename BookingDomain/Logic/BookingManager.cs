@@ -1,10 +1,8 @@
 
 namespace ConferenceBookingDomain
 {
-    public class InvalidBookingException : Exception;
-    public class BookingConflictException : Exception;
-    public class RoomNotFoundException(int id) : Exception;
-    public class BookingNotFoundException(Guid id) : Exception;
+    
+    
 
 
     public class BookingManager     //All business rules
