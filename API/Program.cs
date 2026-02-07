@@ -55,6 +55,10 @@ var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
 {
+    
+    var context = scope.ServiceProvider.GetRequiredService<BookingDbContext>();
+    await context.Database.EnsureCreatedAsync(); 
+
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 

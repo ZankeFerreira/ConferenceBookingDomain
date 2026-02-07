@@ -16,7 +16,7 @@ namespace API.controllers
             _tokenService = tokenService;
         }
 
-        [HttpPost("loging")]
+        [HttpPost("login")]
         public async Task <IActionResult> Login(LoginDto dto)
         {
             var user = await _userManager.FindByNameAsync(dto.Username);
