@@ -1,10 +1,6 @@
 
 namespace ConferenceBookingDomain
 {
-    
-    
-
-
     public class BookingManager     //All business rules
     {
         //Properties
@@ -39,7 +35,7 @@ namespace ConferenceBookingDomain
             }
             if (request.StartTime >= request.EndTime)
             {
-                throw new InvalidBookingException(); 
+                throw new InvalidBookingException();
             }
             bool overlaps = _bookings.Any(b => b.Room == request.Room && b.Status == BookingStatus.Confirmed && request.StartTime < b.EndTime && request.EndTime > b.StartTime);
 
@@ -48,7 +44,11 @@ namespace ConferenceBookingDomain
                 throw new BookingConflictException();
             }
 
-            Booking booking = new Booking(request.Room, request.StartTime, request.EndTime);
+            Booking booking = new Booking(request.Room, request.StartTime, request.EndTime)
+            {
+                CreatedBy = request.UserId,
+                BookingFor = request.VisitorName
+            }; 
 
             booking.Confirm();
             _bookings.Add(booking);
@@ -59,12 +59,16 @@ namespace ConferenceBookingDomain
 
         }
 
-        public async Task<bool> DeleteBooking(Guid id)
+        public async Task<bool> DeleteBooking(Guid id, string currentUserId, bool isAdmin)
         {
             var bookingToRemove = _bookings.FirstOrDefault(b => b.Id == id);
             if (bookingToRemove == null)
             {
                 throw new BookingNotFoundException(id);
+            }
+            if (!isAdmin && bookingToRemove.CreatedBy != currentUserId)
+            {
+                throw new ForbiddenAccessException();
             }
 
             _bookings.Remove(bookingToRemove);
@@ -76,24 +80,14 @@ namespace ConferenceBookingDomain
         public void UpdateRoomStatus(int id, RoomStatus newStatus)
         {
             var room = _rooms.FirstOrDefault(r => r.ID == id);
-            if (room == null) {
+            if (room == null)
+            {
                 throw new RoomNotFoundException(id);
             }
 
             room.Status = newStatus;
-            
+
         }
 
     }
 }
-
-
-
-
-
-
-
-
-
-
-

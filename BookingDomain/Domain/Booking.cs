@@ -3,7 +3,9 @@ using ConferenceBookingDomain;
 namespace ConferenceBookingDomain{
 public class Booking
 {
-     public Guid Id { get; }
+    public Guid Id { get; }
+    public string CreatedBy{get; set;}
+    public string BookingFor{get;set;}
     public ConferenceRoom Room { get; }
     public DateTime StartTime { get; }
     public DateTime EndTime { get; }

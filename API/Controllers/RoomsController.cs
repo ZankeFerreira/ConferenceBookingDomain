@@ -1,4 +1,5 @@
 using ConferenceBookingDomain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.controllers
@@ -42,6 +43,7 @@ namespace API.controllers
         }
 
         [HttpPatch("{id}/status")]
+        [Authorize(Roles ="Facilities_Manager")]
         public IActionResult UpdateRoomStatus(int id, [FromBody] UpdateRoomStatusDto dto)
         {
              
