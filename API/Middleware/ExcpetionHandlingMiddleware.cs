@@ -15,7 +15,9 @@ public class ExceptionHandlingMiddleware
         {
             BookingConflictException => StatusCodes.Status422UnprocessableEntity,
             InvalidBookingException => StatusCodes.Status400BadRequest,
-            RoomNotFoundException or BookingNotFoundException => StatusCodes.Status404NotFound, 
+            RoomNotFoundException or BookingNotFoundException => StatusCodes.Status404NotFound,
+           // ForbiddenAccessException => StatusCodes.Status403Forbidden, 
+            //InvalidUserException => StatusCodes.Status401Unauthorized,
 
             _ => StatusCodes.Status500InternalServerError
         };
@@ -42,6 +44,7 @@ public class ExceptionHandlingMiddleware
         try
         {
             await _next(context);
+            
         }
         catch (Exception ex)
         {
