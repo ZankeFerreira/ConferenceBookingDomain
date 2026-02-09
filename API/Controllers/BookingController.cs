@@ -3,6 +3,7 @@ using System.Security.Claims;
 using ConferenceBookingDomain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using BookingDomain.Persistence;
 
 namespace API.controllers
 {
@@ -13,16 +14,18 @@ namespace API.controllers
     {
         private BookingManager _bookings;
         private readonly EFBookingStore _context;
-        public BookingController(BookingManager manager, EFBookingStore context)
+        private readonly BookingDbContext _db;
+        public BookingController(BookingManager manager, EFBookingStore context, BookingDbContext db)
         {
             _bookings = manager;
             _context = context;
+            _db = db;
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllBookings()
         {
-            var bookings = await _context.LoadAllAsync();
+            var bookings = await _context.LoadAsync();
 
             if (!bookings.Any())
             {
@@ -31,7 +34,7 @@ namespace API.controllers
 
             var response = bookings.Select(r => new GetBookingsDto
             {
-                room = r.Room.ID,
+                room = r.Room.Id,
                 startTime = r.StartTime,
                 endTime = r.EndTime
 
@@ -46,7 +49,12 @@ namespace API.controllers
         [Authorize(Roles = "Admin,Employee,Receptionist")]
         public async Task<IActionResult> Book([FromBody] CreateBookingDto dto)
         {
-            var room = _bookings.GetRooms().FirstOrDefault(r => r.ID == dto.roomId);
+            
+           var room = await _db.ConferenceRooms.FindAsync(dto.roomId);
+           if (room == null)
+    {
+        return NotFound(new { error = "RoomNotFound", detail = $"Room with ID {dto.roomId} does not exist." });
+    }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             string? displayOwner = User.IsInRole("Receptionist") && !string.IsNullOrEmpty(dto.visitorName)
                                       ? dto.visitorName

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260209202828_InitialBookings2")]
+    partial class InitialBookings2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -100,7 +103,7 @@ namespace API.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("RoomId")
+                    b.Property<int>("RoomID")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("StartTime")
@@ -111,14 +114,14 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("RoomID");
 
                     b.ToTable("Booking");
                 });
 
             modelBuilder.Entity("ConferenceBookingDomain.ConferenceRoom", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -132,9 +135,9 @@ namespace API.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
-                    b.ToTable("ConferenceRooms");
+                    b.ToTable("ConferenceRoom");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -269,7 +272,7 @@ namespace API.Migrations
                 {
                     b.HasOne("ConferenceBookingDomain.ConferenceRoom", "Room")
                         .WithMany()
-                        .HasForeignKey("RoomId")
+                        .HasForeignKey("RoomID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -19,7 +19,7 @@ namespace API.controllers
         public async Task<IActionResult> GetAllRooms()
         {
            
-                var rooms = _rooms.GetRooms();
+                var rooms = await _rooms.GetRooms();
 
                 if (!rooms.Any())
                 {
@@ -28,7 +28,7 @@ namespace API.controllers
 
                 var response = rooms.Select(r => new GetRoomsDto
                 {
-                    ID = r.ID,
+                    ID = r.Id,
                     RoomNumber = r.RoomNumber,
                     Capacity = r.Capacity,
                     Status = r.Status,
@@ -51,8 +51,7 @@ namespace API.controllers
 
                
 
-                return Ok("Room status changed"); // 204 Success, no content to return
-            
+                return Ok("Room status changed"); 
         }
 
 

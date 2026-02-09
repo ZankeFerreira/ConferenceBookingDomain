@@ -11,11 +11,13 @@ public class BookingDbContext: IdentityDbContext<ApplicationUser, IdentityRole, 
     }
 
     public DbSet <Booking> Booking{get;set;}
+    public DbSet <ConferenceRoom> ConferenceRooms {get;set;}
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Booking>().HasKey(c=> c.Id);
+         modelBuilder.Entity<ConferenceRoom>().HasKey(c=> c.Id);
 
 
     }

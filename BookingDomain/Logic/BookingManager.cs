@@ -1,11 +1,10 @@
-
+using BookingDomain.Persistence;
 namespace ConferenceBookingDomain
 {
     public class BookingManager     //All business rules
     {
         //Properties
         private readonly List<Booking> _bookings = new List<Booking>();
-        private List<ConferenceRoom> _rooms = new List<ConferenceRoom>();
 
         private readonly IBookingStore _store;
         //Method
@@ -14,17 +13,16 @@ namespace ConferenceBookingDomain
         {
             _bookings = new List<Booking>();
             _store = store;
-            SeedData data = new SeedData();
-            _rooms = data.SeedRooms();
+
 
         }
         public IReadOnlyList<Booking> GetBookings()
         {
             return _bookings.ToList();
         }
-        public IReadOnlyList<ConferenceRoom> GetRooms()
+        public async Task<List<ConferenceRoom>> LoadRoomsAsync()
         {
-            return _rooms.ToList();
+            return new SeedData().SeedRooms();
         }
 
         public async Task<Booking> CreateBooking(BookingRequest request)
@@ -48,7 +46,7 @@ namespace ConferenceBookingDomain
             {
                 CreatedBy = request.UserId,
                 BookingFor = request.VisitorName
-            }; 
+            };
 
             booking.Confirm();
             _bookings.Add(booking);
@@ -61,7 +59,9 @@ namespace ConferenceBookingDomain
 
         public async Task<bool> DeleteBooking(int id, string currentUserId, bool isAdmin)
         {
-            var bookingToRemove = _bookings.FirstOrDefault(b => b.Id == id);
+            var allBookings = await _store.LoadAsync();
+
+            var bookingToRemove = allBookings.FirstOrDefault(b => b.Id == id);
             if (bookingToRemove == null)
             {
                 throw new BookingNotFoundException(id);
@@ -71,15 +71,18 @@ namespace ConferenceBookingDomain
                 throw new ForbiddenAccessException();
             }
 
-            _bookings.Remove(bookingToRemove);
-            await _store.SaveAsync(_bookings);
+
+
+            await _store.DeleteAsync(id);
 
             return true;
         }
- 
-        public void UpdateRoomStatus(int id, RoomStatus newStatus)
+
+        public async Task UpdateRoomStatus(int id, RoomStatus newStatus)
         {
-            var room = _rooms.FirstOrDefault(r => r.ID == id);
+            var rooms = await _store.LoadRoomsAsync();
+            var room = rooms.FirstOrDefault(r => r.Id == id);
+
             if (room == null)
             {
                 throw new RoomNotFoundException(id);
@@ -87,7 +90,13 @@ namespace ConferenceBookingDomain
 
             room.Status = newStatus;
 
+            await _store.UpdateRoomAsync(room);
         }
+
+        public async Task<IReadOnlyList<ConferenceRoom>> GetRooms()
+{
+    return await _store.LoadRoomsAsync();
+}
 
     }
 }

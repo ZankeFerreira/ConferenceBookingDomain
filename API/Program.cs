@@ -1,4 +1,4 @@
-
+using System.Reflection;
 using ConferenceBookingDomain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +6,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using System.Text;
+using BookingDomain.Persistence;
+;
 
  
 var builder = WebApplication.CreateBuilder(args);
@@ -15,19 +17,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<BookingManager>();
+
 
 var dataDirectory = Path.Combine(
     builder.Environment.ContentRootPath,
     "Data"
 );
 
-builder.Services.AddSingleton<IBookingStore>(new BookingFileStore(dataDirectory));
 
 builder.Services.AddDbContext<BookingDbContext>(options => options.UseSqlite(
     builder.Configuration.GetConnectionString("BookingDb")
 ));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<BookingDbContext>().AddDefaultTokenProviders();
+
+
+builder.Services.AddScoped<IBookingStore,EFBookingStore>();
+builder.Services.AddScoped<EFBookingStore>();
+builder.Services.AddScoped<BookingManager>();
 
 builder.Services.AddScoped<TokenService>();
 
@@ -60,6 +66,14 @@ using (var scope = app.Services.CreateScope())
     
     var context = scope.ServiceProvider.GetRequiredService<BookingDbContext>();
     await context.Database.EnsureCreatedAsync(); 
+
+    if (!context.ConferenceRooms.Any())
+{
+    var seedData = new SeedData();
+    var rooms = seedData.SeedRooms(); 
+    context.ConferenceRooms.AddRange(rooms);   
+    await context.SaveChangesAsync(); 
+}
 
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
