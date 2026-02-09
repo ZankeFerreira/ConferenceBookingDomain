@@ -12,15 +12,17 @@ namespace API.controllers
     public class BookingController : ControllerBase
     {
         private BookingManager _bookings;
-        public BookingController(BookingManager manager)
+        private readonly EFBookingStore _context;
+        public BookingController(BookingManager manager, EFBookingStore context)
         {
             _bookings = manager;
+            _context = context;
         }
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllBookings()
         {
-            var bookings = _bookings.GetBookings();
+            var bookings = await _context.LoadAllAsync();
 
             if (!bookings.Any())
             {
@@ -64,7 +66,7 @@ namespace API.controllers
 
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin,Employee")]
-        public async Task<IActionResult> DeleteBooking(Guid id)
+        public async Task<IActionResult> DeleteBooking(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 

@@ -1,39 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\zanke\\ConferenceBookingDomain\\API\\API.csproj": {}
+    "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\API\\API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\zanke\\ConferenceBookingDomain\\API\\API.csproj": {
+    "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\API\\API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zanke\\ConferenceBookingDomain\\API\\API.csproj",
+        "projectUniqueName": "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\API\\API.csproj",
         "projectName": "API",
-        "projectPath": "C:\\Users\\zanke\\ConferenceBookingDomain\\API\\API.csproj",
-        "packagesPath": "C:\\Users\\zanke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zanke\\ConferenceBookingDomain\\API\\obj\\",
+        "projectPath": "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\API\\API.csproj",
+        "packagesPath": "C:\\Users\\Training Center 1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\API\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\zanke\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Training Center 1\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\zanke\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj": {
-                "projectPath": "C:\\Users\\zanke\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj"
+              "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj": {
+                "projectPath": "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj"
               }
             }
           }
@@ -65,6 +59,10 @@
               "target": "Package",
               "version": "[8.0.23, )"
             },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
@@ -72,6 +70,12 @@
               "version": "[8.0.0, )"
             },
             "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.0, )"
             },
@@ -103,28 +107,22 @@
         }
       }
     },
-    "C:\\Users\\zanke\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj": {
+    "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\zanke\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj",
+        "projectUniqueName": "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj",
         "projectName": "BookingDomain",
-        "projectPath": "C:\\Users\\zanke\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj",
-        "packagesPath": "C:\\Users\\zanke\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\zanke\\ConferenceBookingDomain\\BookingDomain\\obj\\",
+        "projectPath": "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\BookingDomain\\BookingDomain.csproj",
+        "packagesPath": "C:\\Users\\Training Center 1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Training Center 1\\Repos\\ConferenceBookingDomain\\BookingDomain\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\zanke\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Training Center 1\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

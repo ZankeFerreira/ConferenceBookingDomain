@@ -59,7 +59,7 @@ namespace ConferenceBookingDomain
 
         }
 
-        public async Task<bool> DeleteBooking(Guid id, string currentUserId, bool isAdmin)
+        public async Task<bool> DeleteBooking(int id, string currentUserId, bool isAdmin)
         {
             var bookingToRemove = _bookings.FirstOrDefault(b => b.Id == id);
             if (bookingToRemove == null)
@@ -76,7 +76,7 @@ namespace ConferenceBookingDomain
 
             return true;
         }
-
+ 
         public void UpdateRoomStatus(int id, RoomStatus newStatus)
         {
             var room = _rooms.FirstOrDefault(r => r.ID == id);

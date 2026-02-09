@@ -3,22 +3,27 @@ using ConferenceBookingDomain;
 namespace ConferenceBookingDomain{
 public class Booking
 {
-    public Guid Id { get; }
+    public int Id { get; }
     public string CreatedBy{get; set;}
     public string BookingFor{get;set;}
     public ConferenceRoom Room { get; }
     public DateTime StartTime { get; }
     public DateTime EndTime { get; }
     public BookingStatus Status { get; set; }
+    public DateTime CreatedAt { get; } = DateTime.UtcNow;
 
 
 
     public Booking (ConferenceRoom room, DateTime start, DateTime end){
-        Id = Guid.NewGuid();
+        
         Room = room;    //Validation in conference room
         StartTime = start;
         EndTime = end;
+        CreatedAt = DateTime.UtcNow;
     }
+
+
+    private Booking() { }
     
     
 
