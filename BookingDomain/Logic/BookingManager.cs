@@ -1,4 +1,4 @@
-
+using BookingDomain.Persistence;
 namespace ConferenceBookingDomain
 {
     public class BookingManager     //All business rules

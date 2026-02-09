@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using System.Text.Json;
 using System.IO;
+using BookingDomain.Persistence;
 
 namespace ConferenceBookingDomain{
 public class BookingFileStore: IBookingStore

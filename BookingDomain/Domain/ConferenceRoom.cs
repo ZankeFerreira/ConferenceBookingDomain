@@ -4,11 +4,11 @@ namespace ConferenceBookingDomain
     {
         //Roomtype
 
-        public int ID { get; }
+        public int ID { get; set;}
 
-        public string RoomNumber { get; }
+        public string RoomNumber { get; set;}
 
-        public int Capacity { get; }
+        public int Capacity { get;set; }
 
         public RoomStatus Status { get; set; }
 
@@ -24,7 +24,7 @@ namespace ConferenceBookingDomain
 
         
 
-        
+        private ConferenceRoom(){}
 
 
 

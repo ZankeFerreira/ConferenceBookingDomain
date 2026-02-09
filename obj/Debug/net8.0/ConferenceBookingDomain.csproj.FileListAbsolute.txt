@@ -28,3 +28,4 @@ C:\Users\Training Center 1\Repos\ConferenceBookingDomain\obj\Debug\net8.0\refint
 C:\Users\Training Center 1\Repos\ConferenceBookingDomain\obj\Debug\net8.0\ConferenceBookingDomain.pdb
 C:\Users\Training Center 1\Repos\ConferenceBookingDomain\obj\Debug\net8.0\ConferenceBookingDomain.genruntimeconfig.cache
 C:\Users\Training Center 1\Repos\ConferenceBookingDomain\obj\Debug\net8.0\ref\ConferenceBookingDomain.dll
+C:\Users\zanke\ConferenceBookingDomain\obj\Debug\net8.0\ConferenceBookingDomain.MvcApplicationPartsAssemblyInfo.cache

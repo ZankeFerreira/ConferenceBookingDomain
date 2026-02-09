@@ -3,6 +3,7 @@ using System.Security.Claims;
 using ConferenceBookingDomain;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using BookingDomain.Persistence;
 
 namespace API.controllers
 {
@@ -22,7 +23,7 @@ namespace API.controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllBookings()
         {
-            var bookings = await _context.LoadAllAsync();
+            var bookings = await _context.LoadAsync();
 
             if (!bookings.Any())
             {
