@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookingDomain.Persistence;
 
-public class EFBookingStore: IBookingStore
+public class EFBookingStore : IBookingStore
 {
     private readonly BookingDbContext _context;
 
@@ -15,11 +15,34 @@ public class EFBookingStore: IBookingStore
 
     public async Task SaveAsync(IEnumerable<Booking> booking)
     {
+
         _context.Booking.AddRange(booking);
         await _context.SaveChangesAsync();
     }
-    public async Task <List <Booking> > LoadAsync()
+    public async Task<List<Booking>> LoadAsync()
     {
-        return await _context.Booking.OrderByDescending(c=> c.CreatedAt).ToListAsync();
+        return await _context.Booking.OrderByDescending(c => c.CreatedAt).ToListAsync();
     }
+    public async Task DeleteAsync(int id)
+    {
+        var booking = await _context.Booking.FindAsync(id);
+        if (booking != null)
+        {
+            _context.Booking.Remove(booking);
+            await _context.SaveChangesAsync();
+        }
+
+    }
+    public async Task<List<ConferenceRoom>> LoadRoomsAsync()
+    {
+        
+        return await _context.ConferenceRooms.ToListAsync();
+    }
+    public async Task UpdateRoomAsync(ConferenceRoom room)
+{
+    _context.ConferenceRooms.Update(room);
+    await _context.SaveChangesAsync();
+}
+
+
 }

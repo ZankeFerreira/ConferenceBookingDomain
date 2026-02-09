@@ -3,41 +3,70 @@ using System.Text.Json;
 using System.IO;
 using BookingDomain.Persistence;
 
-namespace ConferenceBookingDomain{
-public class BookingFileStore: IBookingStore
+namespace ConferenceBookingDomain
 {
-    private readonly string _filepath;
-    private readonly string _directoryPath;
-
-    public BookingFileStore(string directoryPath)
+    public class BookingFileStore : IBookingStore
     {
-        _directoryPath = directoryPath;
-        _filepath = Path.Combine(_directoryPath, "bookings.json");
-    }
+        private readonly string _filepath;
+        private readonly string _directoryPath;
 
-    public async Task SaveAsync(IEnumerable<Booking> bookings)
-    {
-         if (!Directory.Exists(_directoryPath))
-            Directory.CreateDirectory(_directoryPath);
+        public BookingFileStore(string directoryPath)
+        {
+            _directoryPath = directoryPath;
+            _filepath = Path.Combine(_directoryPath, "bookings.json");
+        }
 
-        
+        public async Task SaveAsync(IEnumerable<Booking> bookings)
+        {
+            if (!Directory.Exists(_directoryPath))
+                Directory.CreateDirectory(_directoryPath);
 
-        string json = JsonSerializer.Serialize(bookings);
-        await File.WriteAllTextAsync(_filepath, json);
-    }
 
-    public async Task<List<Booking>> LoadAsync()
-    {
+
+            string json = JsonSerializer.Serialize(bookings);
+            await File.WriteAllTextAsync(_filepath, json);
+        }
+
+        public async Task<List<Booking>> LoadAsync()
+        {
             if (!File.Exists(_filepath))
             {
                 return new List<Booking>();
             }
-       
+
             string json = await File.ReadAllTextAsync(_filepath);
             return JsonSerializer.Deserialize<List<Booking>>(json) ?? new List<Booking>();
-       
+
+
+        }
+        public async Task DeleteAsync(int id)
+        {
+
+            var allBookings = await LoadAsync();
+
+
+            var updatedList = allBookings.Where(b => b.Id != id).ToList();
+
+
+            await SaveAsync(updatedList);
+        }
+
+        public async Task<List<ConferenceRoom>> LoadRoomsAsync()
+        {
+            // For the file store, you could still use your SeedData or a separate file
+            return new SeedData().SeedRooms();
+        }
+
+        public Task UpdateRoomAsync(ConferenceRoom room)
+        {
+            // If you don't use file-based rooms, just return completed task
+            return Task.CompletedTask;
+        }
+
+
+
+
+
 
     }
-
-}
 }

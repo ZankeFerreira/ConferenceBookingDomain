@@ -67,6 +67,14 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<BookingDbContext>();
     await context.Database.EnsureCreatedAsync(); 
 
+    if (!context.ConferenceRooms.Any())
+{
+    var seedData = new SeedData();
+    var rooms = seedData.SeedRooms(); 
+    context.ConferenceRooms.AddRange(rooms);   
+    await context.SaveChangesAsync(); 
+}
+
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
