@@ -53,13 +53,13 @@ namespace ConferenceBookingDomain
 
         public async Task<List<ConferenceRoom>> LoadRoomsAsync()
         {
-            // For the file store, you could still use your SeedData or a separate file
+            
             return new SeedData().SeedRooms();
         }
 
         public Task UpdateRoomAsync(ConferenceRoom room)
         {
-            // If you don't use file-based rooms, just return completed task
+            
             return Task.CompletedTask;
         }
 

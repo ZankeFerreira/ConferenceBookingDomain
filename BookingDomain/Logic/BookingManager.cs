@@ -11,7 +11,7 @@ namespace ConferenceBookingDomain
 
         public BookingManager(IBookingStore store)
         {
-            _bookings = new List<Booking>();
+            _bookings = new List<Booking>(); 
             _store = store;
 
 
