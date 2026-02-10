@@ -21,7 +21,7 @@ public class EFBookingStore : IBookingStore
     }
     public async Task<List<Booking>> LoadAsync()
     {
-        return await _context.Booking.OrderByDescending(c => c.CreatedAt).ToListAsync();
+        return await _context.Booking.Include(b => b.Room).OrderByDescending(c => c.CreatedAt).ToListAsync();
     }
     public async Task DeleteAsync(int id)
     {

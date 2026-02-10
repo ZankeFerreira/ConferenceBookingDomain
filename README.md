@@ -40,7 +40,8 @@ Table of Contents
 
 - BookingRequest.cs: Represents a request to book a room.
 
-- BookingLogic.cs: Handles booking rules such as availability and overlapping bookings.
+- BookingManager.cs: Handles booking rules such as availability and overlapping bookings.
+- BookingDbContext.cs: Entity Framework configuration and Data Seeding logic.
 
 
 ---
@@ -88,7 +89,13 @@ You can test the API using a POST request to create a new booking.
 ```
 - A successfull respons (HTTP Status 200 OK) will display
 
-
+---
+## Schema Reasoning
+- Some fields are nullable:
+    * CancelledAt (Nullable): This is nullable because a booking is not cancelled when it is first created. It only receives a timestamp if the user explicitly cancels it.
+- Certain defaults are chosen
+    * CreatedAt: Defaults to DateTime.UtcNow to provide an immutable audit trail of when the record was actually entered
+    * BookingStatus: Defaults to Pending as it would need to check the rooms availablity to change to confirmed
 ---
 ## 🆕 New Features
 

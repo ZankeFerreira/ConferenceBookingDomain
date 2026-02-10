@@ -6,4 +6,5 @@ public class GetBookingsDto
     public DateTime startTime {get;set;}
   
     public DateTime endTime {get;set;}
+    public int capacity{get;set;}
 }

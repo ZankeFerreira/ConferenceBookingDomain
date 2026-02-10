@@ -29,7 +29,7 @@ namespace API.controllers
                 var response = rooms.Select(r => new GetRoomsDto
                 {
                     ID = r.Id,
-                    RoomNumber = r.RoomNumber,
+                    Location = r.Location,
                     Capacity = r.Capacity,
                     Status = r.Status,
 
@@ -43,19 +43,12 @@ namespace API.controllers
         }
 
         [HttpPatch("{id}/status")]
-        [Authorize(Roles ="Facilities_Manager")]
+        //[Authorize(Roles ="Facilities_Manager")]
         public IActionResult UpdateRoomStatus(int id, [FromBody] UpdateRoomStatusDto dto)
         {
              
                 _rooms.UpdateRoomStatus(id, dto.status);
-
-               
-
                 return Ok("Room status changed"); 
         }
-
-
-
-
     }
 }

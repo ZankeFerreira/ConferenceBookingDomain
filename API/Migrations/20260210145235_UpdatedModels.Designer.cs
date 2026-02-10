@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260210145235_UpdatedModels")]
+    partial class UpdatedModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -120,32 +123,6 @@ namespace API.Migrations
                     b.HasIndex("RoomId");
 
                     b.ToTable("Booking");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BookingFor = "",
-                            Capacity = 5,
-                            CreatedAt = new DateTime(2026, 2, 10, 16, 43, 58, 106, DateTimeKind.Utc).AddTicks(2767),
-                            CreatedBy = "Admin",
-                            EndTime = new DateTime(2026, 2, 11, 17, 43, 58, 106, DateTimeKind.Utc).AddTicks(2766),
-                            RoomId = 1,
-                            StartTime = new DateTime(2026, 2, 11, 16, 43, 58, 106, DateTimeKind.Utc).AddTicks(2748),
-                            Status = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BookingFor = "",
-                            Capacity = 7,
-                            CreatedAt = new DateTime(2026, 2, 10, 16, 43, 58, 106, DateTimeKind.Utc).AddTicks(2793),
-                            CreatedBy = "Admin",
-                            EndTime = new DateTime(2026, 2, 12, 17, 43, 58, 106, DateTimeKind.Utc).AddTicks(2793),
-                            RoomId = 2,
-                            StartTime = new DateTime(2026, 2, 12, 16, 43, 58, 106, DateTimeKind.Utc).AddTicks(2792),
-                            Status = 2
-                        });
                 });
 
             modelBuilder.Entity("ConferenceBookingDomain.ConferenceRoom", b =>
@@ -181,14 +158,14 @@ namespace API.Migrations
                             Id = 2,
                             Capacity = 20,
                             Location = "Room B",
-                            Status = 1
+                            Status = 0
                         },
                         new
                         {
                             Id = 3,
                             Capacity = 15,
                             Location = "Room C",
-                            Status = 2
+                            Status = 0
                         },
                         new
                         {
