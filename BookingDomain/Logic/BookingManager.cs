@@ -4,54 +4,41 @@ namespace ConferenceBookingDomain
     public class BookingManager     //All business rules
     {
         //Properties
-        private readonly List<Booking> _bookings = new List<Booking>();
+        
 
         private readonly IBookingStore _store;
-        //Method
+        //Method 
 
         public BookingManager(IBookingStore store)
         {
-            _bookings = new List<Booking>(); 
             _store = store;
-
-
         }
-        public IReadOnlyList<Booking> GetBookings()
-        {
-            return _bookings.ToList();
-        }
-        public async Task<List<ConferenceRoom>> LoadRoomsAsync()
-        {
-            return new SeedData().SeedRooms();
-        }
-
+      
         public async Task<Booking> CreateBooking(BookingRequest request)
         {
-            if (request.Room == null)
+            if (request.Room == null || request.StartTime >= request.EndTime)
             {
                 throw new InvalidBookingException();
             }
-            if (request.StartTime >= request.EndTime)
-            {
-                throw new InvalidBookingException();
-            }
-            bool overlaps = _bookings.Any(b => b.Room == request.Room && b.Status == BookingStatus.Confirmed && request.StartTime < b.EndTime && request.EndTime > b.StartTime);
+            var existingBookings = await _store.LoadAsync();
+           
+            bool overlaps = existingBookings.Any(b => b.Room == request.Room && b.Status == BookingStatus.Confirmed && request.StartTime < b.EndTime && request.EndTime > b.StartTime);
 
             if (overlaps)
             {
                 throw new BookingConflictException();
             }
 
-            Booking booking = new Booking(request.Room, request.StartTime, request.EndTime)
+            Booking booking = new Booking(request.Room, request.StartTime, request.EndTime, request.Capacity)
             {
                 CreatedBy = request.UserId,
                 BookingFor = request.VisitorName
             };
 
             booking.Confirm();
-            _bookings.Add(booking);
+            existingBookings.Add(booking);
 
-            await _store.SaveAsync(_bookings);
+            await _store.SaveAsync(existingBookings);
 
             return booking;
 
@@ -94,9 +81,9 @@ namespace ConferenceBookingDomain
         }
 
         public async Task<IReadOnlyList<ConferenceRoom>> GetRooms()
-{
-    return await _store.LoadRoomsAsync();
-}
+        {
+            return await _store.LoadRoomsAsync();
+        }
 
     }
 }

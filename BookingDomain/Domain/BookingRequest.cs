@@ -10,16 +10,19 @@ namespace ConferenceBookingDomain
         public ConferenceRoom Room { get; }
         public DateTime StartTime { get; }
         public DateTime EndTime { get; }
+        public int Capacity {get; set;}
 
 
         public BookingRequest(
             ConferenceRoom room,
             DateTime startTime,
-            DateTime endTime)
+            DateTime endTime,
+            int capacity)
         {
             Room = room;
             StartTime = startTime;
             EndTime = endTime;
+            Capacity = capacity;
 
         }
 

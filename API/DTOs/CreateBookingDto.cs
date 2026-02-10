@@ -11,4 +11,5 @@ public class CreateBookingDto
     [Required]
     public DateTime endTime {get;set;}
     public string? visitorName{get;set;}
+    public int capacity{get;set;}
 }

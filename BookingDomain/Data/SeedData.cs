@@ -7,8 +7,8 @@ namespace ConferenceBookingDomain
             List<ConferenceRoom> ConferenceRoom = new List<ConferenceRoom>()
         {
         new ConferenceRoom (1, "Room A", 10, RoomStatus.Available),
-new ConferenceRoom (2, "Room B", 20, RoomStatus.Available),
-new ConferenceRoom (3, "Room C", 15,  RoomStatus.Available),
+new ConferenceRoom (2, "Room B", 20, RoomStatus.UnderMaintenance),
+new ConferenceRoom (3, "Room C", 15,  RoomStatus.Unavailable),
 new ConferenceRoom (4, "Room D", 25,  RoomStatus.Available),
 new ConferenceRoom (5, "Room E", 30, RoomStatus.Available),
 new ConferenceRoom (6, "Room F", 10,  RoomStatus.Available),

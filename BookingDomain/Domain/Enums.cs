@@ -2,20 +2,14 @@
 {
     Confirmed,
     Cancelled,
-    Moved               //If admin resolves a conflict
+    Pending       
 
 }
 
 public enum RoomStatus          //Additional enum for the status of the rooms for bookings
 {
     Available,
-    UnderMaintenance
+    UnderMaintenance,
+    Unavailable
 }
 
-public enum UserRole            //Additional enum for the user role for access control to features
-{
-    Employee,
-    Admin,
-    FacilitiesManager,
-    Receptionist
-}
