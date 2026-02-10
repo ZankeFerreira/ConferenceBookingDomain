@@ -135,6 +135,120 @@ namespace API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ConferenceRooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Capacity = 10,
+                            RoomNumber = "Room A",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 20,
+                            RoomNumber = "Room B",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Capacity = 15,
+                            RoomNumber = "Room C",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Capacity = 25,
+                            RoomNumber = "Room D",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Capacity = 30,
+                            RoomNumber = "Room E",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Capacity = 10,
+                            RoomNumber = "Room F",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Capacity = 20,
+                            RoomNumber = "Room G",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Capacity = 15,
+                            RoomNumber = "Room H",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Capacity = 13,
+                            RoomNumber = "Room I",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Capacity = 20,
+                            RoomNumber = "Room J",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Capacity = 10,
+                            RoomNumber = "Room K",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Capacity = 5,
+                            RoomNumber = "Room L",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Capacity = 12,
+                            RoomNumber = "Room M",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Capacity = 15,
+                            RoomNumber = "Room N",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Capacity = 12,
+                            RoomNumber = "Room O",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Capacity = 30,
+                            RoomNumber = "Room P",
+                            Status = 0
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20260209113457_InitialBookings")]
-    partial class InitialBookings
+    [Migration("20260210104127_RoomSeedData")]
+    partial class RoomSeedData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -93,7 +93,42 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RoomId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Booking");
+                });
+
+            modelBuilder.Entity("ConferenceBookingDomain.ConferenceRoom", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Capacity")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("RoomNumber")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -102,7 +137,121 @@ namespace API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Booking");
+                    b.ToTable("ConferenceRooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Capacity = 10,
+                            RoomNumber = "Room A",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Capacity = 20,
+                            RoomNumber = "Room B",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Capacity = 15,
+                            RoomNumber = "Room C",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Capacity = 25,
+                            RoomNumber = "Room D",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Capacity = 30,
+                            RoomNumber = "Room E",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Capacity = 10,
+                            RoomNumber = "Room F",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Capacity = 20,
+                            RoomNumber = "Room G",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Capacity = 15,
+                            RoomNumber = "Room H",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Capacity = 13,
+                            RoomNumber = "Room I",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Capacity = 20,
+                            RoomNumber = "Room J",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Capacity = 10,
+                            RoomNumber = "Room K",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Capacity = 5,
+                            RoomNumber = "Room L",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Capacity = 12,
+                            RoomNumber = "Room M",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Capacity = 15,
+                            RoomNumber = "Room N",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Capacity = 12,
+                            RoomNumber = "Room O",
+                            Status = 0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Capacity = 30,
+                            RoomNumber = "Room P",
+                            Status = 0
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -231,6 +380,17 @@ namespace API.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ConferenceBookingDomain.Booking", b =>
+                {
+                    b.HasOne("ConferenceBookingDomain.ConferenceRoom", "Room")
+                        .WithMany()
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Room");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

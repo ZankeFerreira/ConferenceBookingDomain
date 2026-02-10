@@ -17,7 +17,9 @@ public class BookingDbContext: IdentityDbContext<ApplicationUser, IdentityRole, 
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Booking>().HasKey(c=> c.Id);
-         modelBuilder.Entity<ConferenceRoom>().HasKey(c=> c.Id);
+        modelBuilder.Entity<ConferenceRoom>().HasKey(c=> c.Id);
+        var seeder = new SeedData();
+        modelBuilder.Entity<ConferenceRoom>().HasData(seeder.SeedRooms().ToArray());
 
 
     }
