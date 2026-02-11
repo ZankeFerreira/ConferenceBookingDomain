@@ -86,29 +86,29 @@ namespace API.controllers
 
         }
 
-        [HttpGet("location/{location}")]
-        public async Task<IActionResult> GetBookingsLocation(string location)
-        {
-            var bookings = await _context.LoadAsync();
+        // [HttpGet("location/{location}")]
+        // public async Task<IActionResult> GetBookingsLocation(string location)
+        // {
+        //     var bookings = await _context.LoadAsync();
 
-            var filteredBookings = bookings.Where(r => r.Room.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
+        //     var filteredBookings = bookings.Where(r => r.Room..Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
 
-            if (!filteredBookings.Any())
-            {
-                return NotFound("No bookings found for location: {location}");
-            }
+        //     if (!filteredBookings.Any())
+        //     {
+        //         return NotFound("No bookings found for location: {location}");
+        //     }
 
-            var response = filteredBookings.Select(r => new GetBookingsDto
-            {
-                room = r.Room.Id,
-                startTime = r.StartTime,
-                endTime = r.EndTime,
-                capacity = r.Capacity
-            });
+        //     var response = filteredBookings.Select(r => new GetBookingsDto
+        //     {
+        //         room = r.Room.Id,
+        //         startTime = r.StartTime,
+        //         endTime = r.EndTime,
+        //         capacity = r.Capacity
+        //     });
 
-            return Ok(response);
+        //     return Ok(response);
             
-        }
+        // }
 
 
     }

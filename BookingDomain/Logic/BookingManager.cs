@@ -85,7 +85,5 @@ namespace ConferenceBookingDomain
             return await _store.LoadRoomsAsync();
         }
 
-        
-
     }
 }

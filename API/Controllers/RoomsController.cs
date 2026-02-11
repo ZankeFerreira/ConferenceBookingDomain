@@ -30,6 +30,7 @@ namespace API.controllers
             var response = rooms.Select(r => new GetRoomsDto
             {
                 ID = r.Id,
+                RoomID = r.RoomID,
                 Location = r.Location,
                 Capacity = r.Capacity,
                 Status = r.Status,
