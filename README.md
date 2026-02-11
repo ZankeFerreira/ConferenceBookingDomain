@@ -57,10 +57,25 @@ To access the documents on your local computer:
 
 ---
 
-## 🚀 Usage
+## 🚀 API Usage
 
-This repository is currently used for:
-- Contributing to the Conference Room Booking application using C#
+The API provides comprehensive management of bookings and room states. You can test these via Postman.
+## Filtering and sorting
+- By Location: GET api/bookings/location?location=Bloemfontein
+- By Date Range: GET api/bookings/dates?Start=2026-02-11T09:00:00&End=2026-06-11T17:00:00
+- By Rooms: GET api/bookings/rooms?room=Room A
+- By Room Status: GET api/bookings/status?status=Available
+
+## Pagination
+To handle large datasets efficiently, list endpoints support the following query parameters:
+- page: The page number to retrieve (Default: 1).
+- pageSize: Number of records per page (Default: 10).
+- Total pages: Responses include totalCount to help frontend components calculate total pages.
+
+## Perfomance Considerations
+
+- AsNoTracking: Read-only queries (like Search and List) use .AsNoTracking() to reduce memory overhead and bypass the Entity Framework change tracker.
+- Server-Side Filtering: All Where, Skip, and Take operations are performed at the database level (SQL) rather than in memory.
 
 ---
 ## 💻 How to run the API
