@@ -26,6 +26,7 @@ namespace API.controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllBookings()
         {
+           
             var bookings = await _context.LoadAsync();
 
             if (!bookings.Any())
@@ -39,12 +40,9 @@ namespace API.controllers
                 startTime = r.StartTime,
                 endTime = r.EndTime,
                 capacity = r.Capacity
-
-
             });
 
             return Ok(bookings);
-
         }
 
         [HttpPost]
@@ -84,9 +82,34 @@ namespace API.controllers
 
             await _bookings.DeleteBooking(id, userId, isAdmin);
 
-
             return Ok("Booking successfully deleted");
 
         }
+
+        [HttpGet("location/{location}")]
+        public async Task<IActionResult> GetBookingsLocation(string location)
+        {
+            var bookings = await _context.LoadAsync();
+
+            var filteredBookings = bookings.Where(r => r.Room.Location.Equals(location, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (!filteredBookings.Any())
+            {
+                return NotFound("No bookings found for location: {location}");
+            }
+
+            var response = filteredBookings.Select(r => new GetBookingsDto
+            {
+                room = r.Room.Id,
+                startTime = r.StartTime,
+                endTime = r.EndTime,
+                capacity = r.Capacity
+            });
+
+            return Ok(response);
+            
+        }
+
+
     }
 }
