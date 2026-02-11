@@ -38,7 +38,7 @@ namespace ConferenceBookingDomain
             booking.Confirm();
             existingBookings.Add(booking);
 
-            await _store.SaveAsync(existingBookings);
+            await _store.SaveAsync(new List<Booking> { booking }); 
 
             return booking;
 

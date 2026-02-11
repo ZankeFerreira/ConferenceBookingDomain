@@ -1,7 +1,7 @@
 using ConferenceBookingDomain;
 
 using Microsoft.EntityFrameworkCore;
-
+using System.Linq;
 namespace BookingDomain.Persistence;
 
 public class EFBookingStore : IBookingStore
