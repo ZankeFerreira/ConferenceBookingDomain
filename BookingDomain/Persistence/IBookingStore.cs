@@ -6,7 +6,7 @@ public interface IBookingStore
     Task<List<Booking>> LoadAsync();
     Task DeleteAsync(int id);
     Task<List<ConferenceRoom>> LoadRoomsAsync(); 
-        Task UpdateRoomAsync(ConferenceRoom room);
+    Task UpdateRoomAsync(ConferenceRoom room);
 
 }
 }

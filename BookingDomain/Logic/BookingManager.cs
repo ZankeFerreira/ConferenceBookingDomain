@@ -29,8 +29,12 @@ namespace ConferenceBookingDomain
                 throw new BookingConflictException();
             }
 
-            Booking booking = new Booking(request.Room, request.StartTime, request.EndTime, request.Capacity)
-            {
+            Booking booking = new Booking{
+                RoomId = request.Room.Id, 
+                StartTime =request.StartTime, 
+                EndTime = request.EndTime, 
+                Capacity = request.Capacity,
+                UserId = request.UserId,
                 CreatedBy = request.UserId,
                 BookingFor = request.VisitorName
             };
@@ -57,8 +61,6 @@ namespace ConferenceBookingDomain
             {
                 throw new ForbiddenAccessException();
             }
-
-
 
             await _store.DeleteAsync(id);
 

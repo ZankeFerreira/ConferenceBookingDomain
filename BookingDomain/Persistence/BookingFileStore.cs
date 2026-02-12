@@ -39,16 +39,10 @@ namespace ConferenceBookingDomain
 
 
         }
-        public async Task DeleteAsync(int id)
+        public Task DeleteAsync(int id)
         {
 
-            var allBookings = await LoadAsync();
-
-
-            var updatedList = allBookings.Where(b => b.Id != id).ToList();
-
-
-            await SaveAsync(updatedList);
+            return Task.CompletedTask;
         }
 
         public async Task<List<ConferenceRoom>> LoadRoomsAsync()
