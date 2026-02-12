@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 using System.Text;
 using BookingDomain.Persistence;
-;
+using ConferenceBookingDomain.Domain;
+
 
  
 var builder = WebApplication.CreateBuilder(args);

@@ -821,6 +821,9 @@
       },
       "System.Threading.Channels/6.0.0": {},
       "BookingDomain/1.0.0": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0"
+        },
         "runtime": {
           "BookingDomain.dll": {
             "assemblyVersion": "1.0.0",

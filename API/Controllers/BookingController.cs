@@ -29,13 +29,14 @@ namespace API.controllers
         {
 
             var bookings = await _context.LoadAsync();
+            //Filtering in EFBookingStore
 
             if (!bookings.Any())
             {
                 return NotFound("There are no previous/current bookings");
             }
 
-            var response = bookings.Select(r => new SummarisedBookingDto
+            var response = bookings.Select(r => new 
 
             {
                 id = r.Id,
@@ -43,7 +44,9 @@ namespace API.controllers
                 room = r.Room.RoomID,
                 startTime = r.StartTime,
                 endTime = r.EndTime,
-                capacity = r.Capacity
+                capacity = r.Capacity,
+                status = r.Status.ToString()
+
             });
 
             return Ok(response);
@@ -62,6 +65,8 @@ namespace API.controllers
                 return NotFound(new { error = "RoomNotFound", detail = $"Room with ID {dto.roomId} does not exist." });
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            
             string? displayOwner = User.IsInRole("Receptionist") && !string.IsNullOrEmpty(dto.visitorName)
                                       ? dto.visitorName
                                       : User.Identity.Name;
@@ -99,7 +104,9 @@ namespace API.controllers
             
             var query = _db.Booking.AsQueryable();
 
-            query = query.Include(r => r.Room).Where(r => r.Room.Location == location);
+            query = query.Include(r => r.Room)
+             .Where(c => c.Status == BookingStatus.Confirmed)
+             .Where(r => r.Room.Location == location);
 
             int page = 1;
             int pageSize = 10;
@@ -134,7 +141,9 @@ namespace API.controllers
         {
             var query = _db.Booking.AsQueryable();
 
-            query = query.Include(r => r.Room).Where(r => r.Room.RoomID == room);
+            query = query.Include(r => r.Room)
+            .Where(c => c.Status == BookingStatus.Confirmed)
+            .Where(r => r.Room.RoomID == room);
 
             int page = 1;
             int pageSize = 10;
@@ -169,7 +178,8 @@ namespace API.controllers
         {
             var query = _db.Booking.AsQueryable();
 
-            query = query.Where(r => r.StartTime < End && r.EndTime > Start);
+            query = query.Where(c => c.Status == BookingStatus.Confirmed)
+            .Where(r => r.StartTime < End && r.EndTime > Start);
 
             int page = 1;
             int pageSize = 10;
@@ -198,7 +208,9 @@ namespace API.controllers
         {
             var query = _db.Booking.AsQueryable();
 
-            query = query.Where(r => r.Room.Status == status);
+            query = query
+            .Where(c => c.Status == BookingStatus.Confirmed)
+            .Where(r => r.Room.Status == status);
 
             int page = 1;
             int pageSize = 10;

@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ConferenceBookingDomain;
+using ConferenceBookingDomain.Domain;
+
 
 public class BookingDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
 {
@@ -17,33 +19,21 @@ public class BookingDbContext : IdentityDbContext<ApplicationUser, IdentityRole,
         base.OnModelCreating(modelBuilder);
 
         modelBuilder.Entity<Booking>().HasKey(c => c.Id);
-        modelBuilder.Entity<Booking>().HasData(
-           new
-           {
-               Id = 1,
-               Capacity = 5,
-               StartTime = DateTime.UtcNow.AddDays(1),
-               EndTime = DateTime.UtcNow.AddDays(1).AddHours(1),
-               CreatedBy = "Admin",
-                BookingFor = "",
-               Status = BookingStatus.Confirmed,
-               CreatedAt = DateTime.UtcNow,
-               RoomId = 1
-           },
-        new
-        {
-            Id = 2,
-            Capacity = 7,
-            StartTime = DateTime.UtcNow.AddDays(2),
-            EndTime = DateTime.UtcNow.AddDays(2).AddHours(1),
-            CreatedBy = "Admin",
-            BookingFor = "",
-            Status = BookingStatus.Pending,
-            CreatedAt = DateTime.UtcNow,
-            RoomId = 2
-        }
 
-        );
+        modelBuilder.Entity<Booking>()
+            .HasOne(c => c.User)
+            .WithMany()
+            .HasForeignKey(c => c.UserId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<Booking>()
+            .HasOne(c => c.Room)
+            .WithMany()
+            .HasForeignKey(c => c.RoomId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+       
+       
 
         modelBuilder.Entity<ConferenceRoom>().HasKey(c => c.Id);
         var seeder = new SeedData();

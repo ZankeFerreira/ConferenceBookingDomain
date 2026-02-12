@@ -22,3 +22,4 @@ C:\Users\Training Center 1\Repos\ConferenceBookingDomain\BookingDomain\obj\Debug
 C:\Users\Training Center 1\Repos\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\refint\BookingDomain.dll
 C:\Users\Training Center 1\Repos\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.pdb
 C:\Users\Training Center 1\Repos\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\ref\BookingDomain.dll
+C:\Users\zanke\ConferenceBookingDomain\BookingDomain\obj\Debug\net8.0\BookingDomain.csproj.AssemblyReference.cache
