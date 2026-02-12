@@ -6,7 +6,7 @@
 
 }
 
-public enum RoomStatus          //Additional enum for the status of the rooms for bookings
+public enum RoomStatus          
 {
     Available,
     UnderMaintenance,

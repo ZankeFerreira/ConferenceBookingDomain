@@ -33,7 +33,7 @@ namespace API.controllers
                 RoomID = r.RoomID,
                 Location = r.Location,
                 Capacity = r.Capacity,
-                Status = r.Status,
+                Status = r.Status.ToString()
 
 
 
@@ -44,10 +44,11 @@ namespace API.controllers
         
         [HttpPatch("{id}/status")]
         //[Authorize(Roles ="Facilities_Manager")]
-        public IActionResult UpdateRoomStatus(int id, [FromBody] UpdateRoomStatusDto dto)
+        public IActionResult UpdateRoomStatus(int id, [FromBody] string input)
         {
+            
 
-            _rooms.UpdateRoomStatus(id, dto.status);
+            _rooms.UpdateRoomStatus(id, input);
             return Ok("Room status changed");
         }
     }

@@ -65,7 +65,7 @@ namespace ConferenceBookingDomain
             return true;
         }
 
-        public async Task UpdateRoomStatus(int id, RoomStatus newStatus)
+        public async Task UpdateRoomStatus(int id, string input)
         {
             var rooms = await _store.LoadRoomsAsync();
             var room = rooms.FirstOrDefault(r => r.Id == id);
@@ -75,7 +75,16 @@ namespace ConferenceBookingDomain
                 throw new RoomNotFoundException(id);
             }
 
-            room.Status = newStatus;
+            
+
+            RoomStatus newStatus;
+
+
+            if(Enum.TryParse(input, out newStatus))
+            {
+                room.Status = newStatus;
+            }
+            
 
             await _store.UpdateRoomAsync(room);
         }

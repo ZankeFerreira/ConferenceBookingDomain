@@ -38,13 +38,15 @@ namespace API.controllers
             var response = bookings.Select(r => new SummarisedBookingDto
 
             {
-                id = r.Room.Id,
+                id = r.Id,
+                location = r.Room.Location,
+                room = r.Room.RoomID,
                 startTime = r.StartTime,
                 endTime = r.EndTime,
                 capacity = r.Capacity
             });
 
-            return Ok(bookings);
+            return Ok(response);
         }
 
 
@@ -76,7 +78,7 @@ namespace API.controllers
 
 
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] 
         [Authorize(Roles = "Admin,Employee")]
         public async Task<IActionResult> DeleteBooking(int id)
         {
@@ -212,7 +214,7 @@ namespace API.controllers
                 id = r.Id,
                 location = r.Room.Location,
                 room = r.Room.RoomID,
-                status = r.Room.Status,
+                status = r.Room.Status.ToString(),
                 startTime = r.StartTime,
                 endTime = r.EndTime,
                 capacity = r.Capacity

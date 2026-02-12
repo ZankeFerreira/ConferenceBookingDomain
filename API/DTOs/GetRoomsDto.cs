@@ -9,5 +9,5 @@ public class GetRoomsDto
 
     public int Capacity { get;set; }
 
-    public RoomStatus Status { get; set; }
+    public string Status { get; set; }
 }
