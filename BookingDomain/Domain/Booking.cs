@@ -4,10 +4,6 @@ namespace ConferenceBookingDomain{
 public class Booking
 {
     public int Id { get; set;}
-    public ConferenceRoom Room { get; set;}
-    public int RoomId {get;set;}
-    public ApplicationUser User { get; set;}
-    public string UserId { get; set; }
     public string CreatedBy{get; set;}
     public string BookingFor{get;set;}
     public int Capacity{get; set;}
@@ -16,6 +12,12 @@ public class Booking
     public BookingStatus Status { get; set; }
     public DateTime CreatedAt { get; set;} = DateTime.UtcNow;
     public DateTime ? CancelledAt { get; set;}
+    //Navigation propertier
+    public ConferenceRoom Room { get; set;}
+    public ApplicationUser User { get; set;}
+    //Foreign keys
+    public int RoomId {get;set;}
+    public string UserId { get; set; }
 
     
     

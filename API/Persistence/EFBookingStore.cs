@@ -33,7 +33,7 @@ public class EFBookingStore : IBookingStore
             
         }
         await _context.SaveChangesAsync();
-        await _context.SaveChangesAsync();
+        
 
     }
     public async Task<List<ConferenceRoom>> LoadRoomsAsync()
