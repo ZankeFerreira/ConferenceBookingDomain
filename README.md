@@ -92,6 +92,22 @@ To handle large datasets efficiently, list endpoints support the following query
 - Server-Side Filtering: All Where, Skip, and Take operations are performed at the database level (SQL) rather than in memory.
 
 ---
+## 🖼️How to run the website
+1. Chang the directory to be in the frontend folder
+```
+cd booking-ui
+```
+2. run the following command
+```
+npm run dev
+```
+3. Copy the local host link and open it in your browser   
+http://localhost:5173/
+* If you are getting an error that the file cannot be loaded because running scripts are disabled on the system, then copy this line and do the steps again
+```
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+```
+
 ## 💻 How to run the API
 1. Navigate to the root directory of the API project in your terminal (where the .csproj file is located).
 2. Run the application using:
