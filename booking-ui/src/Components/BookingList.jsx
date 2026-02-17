@@ -1,7 +1,7 @@
 import BookingCard from "./BookingCard";
-import { mockData } from "../Data/mockData";
 
-function BookingList(){
+
+function BookingList({bookings}){
     const rowStyle = {
         display: "flex",
         
@@ -25,8 +25,8 @@ function BookingList(){
                 
             </div>
 
-            {mockData.map(r=> <BookingCard key={r.id} booking= {r}/>)}
-            <p>Displaying 1-{mockData.length} out of {mockData.length}</p>
+            {bookings.map(r=> <BookingCard key={r.id} booking= {r}/>)}
+            <p>Displaying 1-{bookings.length} out of {bookings.length}</p>
         </div>
     );
 }

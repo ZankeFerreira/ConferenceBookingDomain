@@ -1,6 +1,6 @@
-    function Button({label}){
+    function Button({label, type}){
         return(
-            <button>{label}</button>
+            <button type = {type}>{label}</button>
         );
     }
 
