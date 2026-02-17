@@ -9,9 +9,9 @@ function App() {
     <div>
       <Header/>
       <BookingList/>
-    <Footer/>
+      <Footer/>
     </div>
-  )
+  );
 }
 
 export default App;

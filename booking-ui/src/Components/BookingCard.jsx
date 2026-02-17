@@ -3,26 +3,26 @@ import Button from "./Button.jsx"
 function BookingCard({booking}){
     const cardRowStyle = {
         display: "flex",
-        justifyContent: "space-between",
+        
         alignItems: "center",
         padding: "15px",
         borderBottom: "1px solid #ccc",
         borderTop: "none", 
-        marginLeft: "50px",
-        marginRight: "50px"      
+        marginLeft: "15%",
+        marginRight: "15%"      
     };
 
-    const columnStyle = { flex: 1, textAlign: "left" };
+    const columnStyle = { flex: 0.5, textAlign: "left" };
     return(
         
         <div style={cardRowStyle}>
         
-            <span style={{ flex: 0.3}}>{booking.id}</span>
+            <span style={{ flex: 0.5}}>{booking.id}</span>
             <span style={columnStyle}>{booking.user}</span>
             <span style={columnStyle}> {booking.room}</span>
-            <span style={columnStyle}>{booking.startTime}</span>
-            <span style={columnStyle}> {booking.endTime} </span>
-            <span style={{ flex: 0.4}}><Button label = "Cancel"/></span> 
+            <span style={{ flex: 1, textAlign:"left"}}>{booking.startTime}</span>
+            <span style={{ flex: 1, textAlign:"left"}}> {booking.endTime} </span>
+            <span style={columnStyle}><Button label = "Cancel"/></span> 
             
         
         </div>
