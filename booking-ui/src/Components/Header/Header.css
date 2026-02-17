@@ -1,0 +1,27 @@
+.main-header{
+  display: flex;
+  justify-content: space-between;
+  text-align: left;    
+  padding-left: 2em;
+  background-color: rgb(142, 171, 226);
+   align-items: center;
+}
+.navigation{
+  font-size: 20px;  
+  display: flex;
+  gap: 80px;
+  margin-right: 150px;
+   align-items: center;
+}
+
+.navigation a{
+color:  #242424;
+}
+
+.navigation a:hover{
+  color:  #4b4a4a;
+  background-color:rgb(181, 201, 238) ;
+  padding: 7px;
+  margin: -7px;
+  border-radius: 10px;
+}
