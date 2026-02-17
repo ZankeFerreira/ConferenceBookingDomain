@@ -22,7 +22,7 @@ function BookingCard({booking}){
             <span style={columnStyle}> {booking.room}</span>
             <span style={{ flex: 1, textAlign:"left"}}>{booking.startTime}</span>
             <span style={{ flex: 1, textAlign:"left"}}> {booking.endTime} </span>
-            <span style={columnStyle}><Button label = "Cancel"/></span> 
+            <span style={columnStyle}><Button label = "Cancel" /></span> 
             
         
         </div>
