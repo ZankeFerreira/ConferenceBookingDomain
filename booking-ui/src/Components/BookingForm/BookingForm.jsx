@@ -10,12 +10,12 @@ function BookingForm({ onAdd }) {
 
   const handleBooking = (r) => {
     r.preventDefault();
-     if (!user || !startTime || !endTime) {
-            alert("Please fill in all fields!");
-            return;
-        }
+    if (!user || !startTime || !endTime) {
+      alert("Please fill in all fields!");
+      return;
+    }
 
-    
+
     const newBooking = {
       id: Date.now(),
       user: user,
@@ -23,49 +23,67 @@ function BookingForm({ onAdd }) {
       startTime: startTime,
       endTime: endTime,
 
-      
+
     };
     onAdd(newBooking);
-    setUser ("");
-    setStartTime ("");
-    setEndTime ("");
+    setUser("");
+    setStartTime("");
+    setEndTime("");
 
-
-    
   };
 
   return (
-    
-    <form onSubmit={handleBooking} className = "form">
-      <h2 style = {{margin: 0}}>Make a booking</h2>
-      <input
-        type="text"
-        value={user}
-        onChange={(r) => setUser(r.target.value)}
-        placeholder="e.g Admin"
-      />
-      <select value={room} onChange={(e) => setRoom(e.target.value)}>
-        <option>Room A</option>
-        <option>Room B</option>
-        <option>Room C</option>
-        <option>Room D</option>
-        <option>Room E</option>
-      </select>
-      <input
-        type="datetime-local"
-        value={startTime}
-        onChange={(r) => setStartTime(r.target.value)}
-        placeholder="e.g 2026-06-01 10:00:00"
-      />
-      <input
-        type="datetime-local"
-        value={endTime}
-        onChange={(r) => setEndTime(r.target.value)}
-        placeholder="e.g 2026-06-01 20:00:00"
-      />
 
-      <Button label="Book" type = "submit" />
-      
+    <form onSubmit={handleBooking} className="form">
+      <h2 style={{ margin: 0 }}>Make a booking</h2>
+      <div className="form-row">
+        <label>
+          User:
+        </label>
+        <input
+          type="text"
+          value={user}
+          onChange={(r) => setUser(r.target.value)}
+          placeholder="e.g Admin"
+        />
+      </div>
+      <div className="form-row">
+        <label>
+          Room:
+        </label>
+        <select value={room} onChange={(e) => setRoom(e.target.value)}>
+          <option>Room A</option>
+          <option>Room B</option>
+          <option>Room C</option>
+          <option>Room D</option>
+          <option>Room E</option>
+        </select>
+      </div>
+      <div className="form-row">
+        <label>
+          Start Time:
+        </label>
+        <input
+          type="datetime-local"
+          value={startTime}
+          onChange={(r) => setStartTime(r.target.value)}
+          placeholder="e.g 2026-06-01 10:00:00"
+        />
+      </div>
+      <div className="form-row">
+        <label>
+          End Time:
+        </label>
+        <input
+          type="datetime-local"
+          value={endTime}
+          onChange={(r) => setEndTime(r.target.value)}
+          placeholder="e.g 2026-06-01 20:00:00"
+        />
+      </div>
+
+      <Button label="Book" type="submit" />
+
     </form>
   );
 }
