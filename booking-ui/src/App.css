@@ -1,8 +1,12 @@
-#root {
-  
-  margin: 0 auto;
-  
+#root {  
+  margin: 0 auto;  
   text-align: center;
+}
+
+.spinner{
+  font-size: 20px;
+  font-weight: thick;
+  margin: 00px
 }
 
 
