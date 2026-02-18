@@ -1,12 +1,13 @@
 import { initialBookings } from '../Data/mockData'
 
-export const fetchAllBookings = () => {
+export const fetchAllBookings = (signal) => {
   return new Promise((resolve, reject) => {
 
     const delay = setTimeout(resolve, Math.random() * (2500 - 500) + 500);
-    setTimeout(() => {
+    
       const isError = Math.random() < 0.2;
 
+      const timeoutId = setTimeout(() => {
       if(isError){
         reject(new Error("Failed to fetch bookings. Please try again"));
       }
@@ -15,7 +16,12 @@ export const fetchAllBookings = () => {
       }
     }, delay);
 
+    signal?.addEventListener('abort', () => {
+      clearTimeout(timeoutId);
+      reject(new Error("Aborted"));
+    });
+
     
   });
   
-}
+};

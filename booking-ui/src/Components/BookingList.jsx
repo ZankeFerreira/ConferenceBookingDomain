@@ -15,6 +15,7 @@ function BookingList({bookings}){
     return(
         <div >
             <h2>Current Bookings</h2>
+            
             <div style = {rowStyle}>
                 <span style={{ flex: 0.5, textAlign:"left"}}>Booking ID</span>
                 <span style={columnStyle}>User</span>
