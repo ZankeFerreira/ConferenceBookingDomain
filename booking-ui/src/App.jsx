@@ -19,14 +19,7 @@ function App() {
     setError(null);
 
     try {
-      const [data] = await Promise.all(
-        [
-            fetchAllBookings(),
-            new Promise ((resolve) => setTimeout(resolve, 1000))
-      
-        ]
-      );
-        
+      const data = await fetchAllBookings();
       setBookings(data);
       toast.success("Data Sync Successful!")
       
